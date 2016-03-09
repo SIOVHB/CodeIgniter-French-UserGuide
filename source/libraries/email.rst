@@ -1,20 +1,21 @@
-###########
-Email Class
-###########
+##################
+Classe de courriel
+##################
 
-CodeIgniter's robust Email Class supports the following features:
+La classe de courriel du robuste CodeIgniter supporte les fonctionnalités
+suivantes :
 
--  Multiple Protocols: Mail, Sendmail, and SMTP
--  TLS and SSL Encryption for SMTP
--  Multiple recipients
--  CC and BCCs
--  HTML or Plaintext email
--  Attachments
--  Word wrapping
--  Priorities
--  BCC Batch Mode, enabling large email lists to be broken into small
-   BCC batches.
--  Email Debugging tools
+-  Plusieurs protocoles : Mail, Sendmail, et SMTP
+-  Chiffrement avec TLS et SSL pour SMTP
+-  Plusieurs destinataires
+-  CC (copie à) et BCC (copie cachée à)
+-  Courriels en HTML ou en texte brut
+-  Pièces jointes
+-  Césure des mots
+-  Prioritiés
+-  Envoi en gros par BCC, permettant aux grandes listes d’être découpées en
+   plusieurs petits groupes.
+-  Outils de déboggage pour le mail
 
 .. contents::
   :local:
@@ -23,45 +24,45 @@ CodeIgniter's robust Email Class supports the following features:
 
   <div class="custom-index container"></div>
 
-***********************
-Using the Email Library
-***********************
+*************************************
+Utilisation de la biblothèque de mail
+*************************************
 
-Sending Email
-=============
+Envoyer un mail
+===============
 
-Sending email is not only simple, but you can configure it on the fly or
-set your preferences in a config file.
+Envoyer un mail n’est pas seulement simple, mais vous pouvez le configurer à la
+volée ou spécifier les préférences dans le fichier de configuration.
 
-Here is a basic example demonstrating how you might send email. Note:
-This example assumes you are sending the email from one of your
-:doc:`controllers <../general/controllers>`.
+Voici un exemple basique expliquant comment vous pouvez envoyer un mail. Note :
+cet exemple suppose que vous envoyer le mail depuis l’un de vos
+:doc:`contrôleurs <../general/controllers>`.
 
 ::
 
 	$this->load->library('email');
 
-	$this->email->from('your@example.com', 'Your Name');
-	$this->email->to('someone@example.com');
-	$this->email->cc('another@another-example.com');
-	$this->email->bcc('them@their-example.com');
+	$this->email->from('vous@example.com', 'Votre nom');
+	$this->email->to('quelque-un@example.com');
+	$this->email->cc('un-autre@un-autre-example.com');
+	$this->email->bcc('eux@leur-example.com');
 
-	$this->email->subject('Email Test');
-	$this->email->message('Testing the email class.');
+	$this->email->subject('Test mail');
+	$this->email->message('Essai de la classe mail.');
 
 	$this->email->send();
 
-Setting Email Preferences
-=========================
+Régler les préférences de mail
+==============================
 
-There are 21 different preferences available to tailor how your email
-messages are sent. You can either set them manually as described here,
-or automatically via preferences stored in your config file, described
-below:
+Il y a 21 préfrences différentes disponniblent pour affiner comment vos mails
+seront envoyés. Autrement, vous pouvez les régler manuellement comment nous le
+décrivons ici, ou automatiquement via les préférences stockées dans le fichier
+de configuration, décrit ci-dessous :
 
-Preferences are set by passing an array of preference values to the
-email initialize method. Here is an example of how you might set some
-preferences::
+Les préférences sont réglées dans un tableau de préférences où les valeurs sont
+passées à la méthode d’initialisation de mail. Voici un exemple de la façon de
+choisir des réglages::
 
 	$config['protocol'] = 'sendmail';
 	$config['mailpath'] = '/usr/sbin/sendmail';
@@ -70,18 +71,19 @@ preferences::
 
 	$this->email->initialize($config);
 
-.. note:: Most of the preferences have default values that will be used
-	if you do not set them.
+.. note:: La plus part des paramètres ont une valeur par défaut qui sera
+        utilisée si on ne les spécifie pas.
 
-Setting Email Preferences in a Config File
-------------------------------------------
+Réglage des paramètres de mail dans un fichier de configuration
+---------------------------------------------------------------
 
-If you prefer not to set preferences using the above method, you can
-instead put them into a config file. Simply create a new file called the
-email.php, add the $config array in that file. Then save the file at
-config/email.php and it will be used automatically. You will NOT need to
-use the ``$this->email->initialize()`` method if you save your
-preferences in a config file.
+Si vous préférez ne pas régler les paramètres en utilisant la méthode suivante,
+vous pouvez les mettres dans un fichier de configuration. Créeez simplement
+un nouveau fichier que vous appellerez email.php, et ajoutez le tableau $config.
+Puis sauvegardez le fichier sous config/email.php et il sera utilisé
+automatiquement. Nous n’avez PAS besoin d’utiliser la méthode
+``$this->email->initialize()`` si vous sauvegardez vos préférences dans le
+fichier de configuration.
 
 Email Preferences
 =================
