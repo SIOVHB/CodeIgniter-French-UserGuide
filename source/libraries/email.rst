@@ -85,63 +85,62 @@ automatiquement. Nous n’avez PAS besoin d’utiliser la méthode
 ``$this->email->initialize()`` si vous sauvegardez vos préférences dans le
 fichier de configuration.
 
-Email Preferences
-=================
+Réglages d’email
+================
 
-The following is a list of all the preferences that can be set when
-sending email.
+Voici une liste de tous les réglages que vous pouvez spécifier quand vous
+envoyez un email.
 
-=================== ====================== ============================ =======================================================================
-Preference          Default Value          Options                      Description
-=================== ====================== ============================ =======================================================================
-**useragent**       CodeIgniter            None                         The "user agent".
-**protocol**        mail                   mail, sendmail, or smtp      The mail sending protocol.
-**mailpath**        /usr/sbin/sendmail     None                         The server path to Sendmail.
-**smtp_host**       No Default             None                         SMTP Server Address.
-**smtp_user**       No Default             None                         SMTP Username.
-**smtp_pass**       No Default             None                         SMTP Password.
-**smtp_port**       25                     None                         SMTP Port.
-**smtp_timeout**    5                      None                         SMTP Timeout (in seconds).
-**smtp_keepalive**  FALSE                  TRUE or FALSE (boolean)      Enable persistent SMTP connections.
-**smtp_crypto**     No Default             tls or ssl                   SMTP Encryption
-**wordwrap**        TRUE                   TRUE or FALSE (boolean)      Enable word-wrap.
-**wrapchars**       76                                                  Character count to wrap at.
-**mailtype**        text                   text or html                 Type of mail. If you send HTML email you must send it as a complete web
-                                                                        page. Make sure you don't have any relative links or relative image
-                                                                        paths otherwise they will not work.
-**charset**         ``$config['charset']``                              Character set (utf-8, iso-8859-1, etc.).
-**validate**        FALSE                  TRUE or FALSE (boolean)      Whether to validate the email address.
-**priority**        3                      1, 2, 3, 4, 5                Email Priority. 1 = highest. 5 = lowest. 3 = normal.
-**crlf**            \\n                    "\\r\\n" or "\\n" or "\\r"   Newline character. (Use "\\r\\n" to comply with RFC 822).
-**newline**         \\n                    "\\r\\n" or "\\n" or "\\r"   Newline character. (Use "\\r\\n" to comply with RFC 822).
-**bcc_batch_mode**  FALSE                  TRUE or FALSE (boolean)      Enable BCC Batch Mode.
-**bcc_batch_size**  200                    None                         Number of emails in each BCC batch.
-**dsn**             FALSE                  TRUE or FALSE (boolean)      Enable notify message from server
-=================== ====================== ============================ =======================================================================
+=================== ====================== ============================ ================================================================================================
+Réglage             Valeur par défaut      Options                      Description
+=================== ====================== ============================ ================================================================================================
+**useragent**       CodeIgniter            Non                          Le "user agent".
+**protocol**        mail                   mail, sendmail, ou smtp      Le protocole d’envoi de mail.
+**mailpath**        /usr/sbin/sendmail     Non                          Le chemin vers le serveur Sendmail.
+**smtp_host**       Aucune                 Non                          L’adresse du serveur SMTP.
+**smtp_user**       Aucune                 Non                          Nom d’utilisateur SMTP.
+**smtp_pass**       Aucune                 Non                          Mot de passe SMTP.
+**smtp_port**       25                     Non                          Port SMTP.
+**smtp_timeout**    5                      Non                          Temps limite (en secondes).
+**smtp_keepalive**  FALSE                  TRUE or FALSE (boolean)      Activer les connexions SMTP persistantes.
+**smtp_crypto**     Aucune                 tls or ssl                   Chiffrement SMTP.
+**wordwrap**        TRUE                   TRUE or FALSE (boolean)      Activer la césure de mots.
+**wrapchars**       76                                                  Limite de caractères avant césure.
+**mailtype**        text                   text or html                 Le type de mail. Si vous envoyez un email HTML, vous devez l’envoyer comme une page web complète.
+                                                                        Prenez garde à ne pas avoir de liens ou images relatifs ou il ne vont pas fonctionner.
+**charset**         ``$config['charset']``                              Encodage (utf-8, iso-8859-1, etc.).
+**validate**        FALSE                  TRUE or FALSE (boolean)      Validation de l’adresse email.
+**priority**        3                      1, 2, 3, 4, 5                Priorité de l’email. 1 = le plus haut. 5 = le plus faible. 3 = normal.
+**crlf**            \\n                    "\\r\\n" or "\\n" or "\\r"   Caractère de nouvelle ligne. (Use "\\r\\n" to comply with RFC 822).
+**newline**         \\n                    "\\r\\n" or "\\n" or "\\r"   Caractère de nouvelle ligne. (Use "\\r\\n" to comply with RFC 822).
+**bcc_batch_mode**  FALSE                  TRUE or FALSE (boolean)      Activer l’envoi massif en BCC.
+**bcc_batch_size**  200                    Non                          Nombre de mails dans cache envoi en BCC.
+**dsn**             FALSE                  TRUE or FALSE (boolean)      Activer la notification de messages sur le serveur.
+=================== ====================== ============================ ================================================================================================
 
-Overriding Word Wrapping
-========================
+Ne pas tenir compte du retour à la ligne
+========================================
 
-If you have word wrapping enabled (recommended to comply with RFC 822)
-and you have a very long link in your email it can get wrapped too,
-causing it to become un-clickable by the person receiving it.
-CodeIgniter lets you manually override word wrapping within part of your
-message like this::
+Si vous avez activé le retour à la ligne (ce qui est recommandé pour respecter
+la RFC 822) et que vous avez un très long lien dans votre mail, il sera aussi
+coupé, ce qui le rendra incliquable pour la personne qui le recevera.
+CodeIgniter vous laisse la possibilité de manuellement ne pas tenir compte du
+retour à la ligne comme ceci::
 
-	The text of your email that
-	gets wrapped normally.
+	Le texte de votre mail va être
+	normalement coupé.
 
-	{unwrap}http://example.com/a_long_link_that_should_not_be_wrapped.html{/unwrap}
+	{unwrap}http://example.com/un_long_lien_qui_ne_sera_pas_coupe.html{/unwrap}
 
-	More text that will be
-	wrapped normally.
+	Plus de text qui sera aussi
+	normalement coupé.
 
 
-Place the item you do not want word-wrapped between: {unwrap} {/unwrap}
+Mettez les mots que vous voulez garder d’un bloc entre : {unwrap} {/unwrap}
 
-***************
-Class Reference
-***************
+*******************
+Classe de Réference
+*******************
 
 .. php:class:: CI_Email
 
@@ -153,16 +152,16 @@ Class Reference
 		:returns:	CI_Email instance (method chaining)
 		:rtype:	CI_Email
 
-		Sets the email address and name of the person sending the email::
+		Spécifier l’adresse mail et le nom de la personne qui l’envoie::
 
 			$this->email->from('you@example.com', 'Your Name');
 
-		You can also set a Return-Path, to help redirect undelivered mail::
+		Vous pouvez aussi spécifier un Return-Path, ce qui va aider la redirection de mails non délivrés::
 
 			$this->email->from('you@example.com', 'Your Name', 'returned_emails@example.com');
 
-		.. note:: Return-Path can't be used if you've configured 'smtp' as
-			your protocol.
+		.. note:: Return-Path ne peut pas être utilisé si vous avez configuré
+			'smtp' comme protocole.
 
 	.. php:method:: reply_to($replyto[, $name = ''])
 
@@ -171,8 +170,8 @@ Class Reference
 		:returns:	CI_Email instance (method chaining)
 		:rtype:	CI_Email
 
-		Sets the reply-to address. If the information is not provided the
-		information in the :meth:from method is used. Example::
+		Spécifier l’adresse de réponse. Si l’information n’est pas fournie,
+		la méthode :meth:from est utilisée. Éxample::
 
 			$this->email->reply_to('you@example.com', 'Your Name');
 
@@ -182,8 +181,8 @@ Class Reference
 		:returns:	CI_Email instance (method chaining)
 		:rtype:	CI_Email
 
-		Sets the email address(s) of the recipient(s). Can be a single e-mail,
-		a comma-delimited list or an array::
+		Spécifier le(s) adresse(s) mail du (des) destinataire(s). Celà peut être une adresse unique,
+		ou une liste délimitée par des virgules ou un tableau::
 
 			$this->email->to('someone@example.com');
 
@@ -203,8 +202,8 @@ Class Reference
 		:returns:	CI_Email instance (method chaining)
 		:rtype:	CI_Email
 
-		Sets the CC email address(s). Just like the "to", can be a single e-mail,
-		a comma-delimited list or an array.
+		Spécifier les adresses de CC. Comme pour "to", peut-être une adresse unique,
+		un liste délimitée par des virgules ou un tableau.
 
 	.. php:method:: bcc($bcc[, $limit = ''])
 
