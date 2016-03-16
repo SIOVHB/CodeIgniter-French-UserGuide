@@ -2,8 +2,8 @@
 Pagination Class
 ################
 
-CodeIgniter's Pagination class is very easy to use, and it is 100%
-customizable, either dynamically or via stored preferences.
+la classe pagination de CodeIgniers est très facile à utiliser, et est entièrement personnalisable,
+autant de maniere dynamique que via des préférences enregistrés.
 
 .. contents::
   :local:
@@ -12,8 +12,8 @@ customizable, either dynamically or via stored preferences.
 
   <div class="custom-index container"></div>
 
-If you are not familiar with the term "pagination", it refers to links
-that allows you to navigate from page to page, like this::
+Si vous n'etes pas familier avec le terme "Pagination", il fait références aux liens permettant de 
+naviger d'une page à l'autre tel que :
 
 	« First  < 1 2 3 4 5 >  Last »
 
@@ -22,7 +22,9 @@ Example
 *******
 
 Here is a simple example showing how to create pagination in one of your
-:doc:`controller <../general/controllers>` methods::
+ methods::
+
+Voici un exemple simple montrant comment créer une pagination dans l'un de vos :doc:`controller <../general/controllers>` de méthodes :
 
 	$this->load->library('pagination');
 
