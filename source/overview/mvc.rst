@@ -1,27 +1,15 @@
 #####################
-Model-View-Controller
+Modèle-Vue-Contrôleur
 #####################
 
-CodeIgniter is based on the Model-View-Controller development pattern.
-MVC is a software approach that separates application logic from
-presentation. In practice, it permits your web pages to contain minimal
-scripting since the presentation is separate from the PHP scripting.
+CodeIgniter est basé sur le motif de conception Modèle- Vue-Contrôleur. 
+MVC est une approche logicielle qui sépare la logique applicative de la présentation. En pratique, cela permet que les pages web contiennent un minimum de code, car la présentation est séparée de la programmation PHP.
 
--  The **Model** represents your data structures. Typically your model
-   classes will contain functions that help you retrieve, insert, and
-   update information in your database.
--  The **View** is the information that is being presented to a user. A
-   View will normally be a web page, but in CodeIgniter, a view can also
-   be a page fragment like a header or footer. It can also be an RSS
-   page, or any other type of "page".
--  The **Controller** serves as an *intermediary* between the Model, the
-   View, and any other resources needed to process the HTTP request and
-   generate a web page.
+-  Le **Modèle** représente la structure de données. Typiquement votre modèle de classe va contenir les fonctions qui vont vous permettre de récupérer, insérer, mettre à jour les informations de votre base de données.
+-  La **Vue** est l'interface utilisateur. Une vue est normalement une page web, mais avec CodeIgniter, cela peut être un fragment de la page comme une en-tête et un bas de page. Cela peut aussi être une page RSS, ou d'autres types de "pages".
+-  Le **Contrôleur** sert *d'intermédiaire*, entre le Modèle , la vue, et toutes autres ressources utiles pour le traitement de la requête HTTP et de la génération de la page.
 
-CodeIgniter has a fairly loose approach to MVC since Models are not
-required. If you don't need the added separation, or find that
-maintaining models requires more complexity than you want, you can
-ignore them and build your application minimally using Controllers and
-Views. CodeIgniter also enables you to incorporate your own existing
-scripts, or even develop core libraries for the system, enabling you to
-work in a way that makes the most sense to you.
+CodeIgniter est une approche assez libre pour MVC car les Modèles ne sont plus requis. 
+Si vous n'avez pas besoin d'ajouter une séparation, ou si vous trouvez que la maintenance des modèles requièrent plus de complexité que vous le souhaitez, vous pouvez les ignorer et construire une application minimale utilisant les Contrôleurs et les Vues.
+CodeIgniter est aussi utile pour incorporer vos propres scripts existants, ou encore développer les bibliothèques principales du système, vous permettant de travailler de la manière qui vous convient le plus.
+
