@@ -2,8 +2,8 @@
 Pagination Class
 ################
 
-CodeIgniter's Pagination class is very easy to use, and it is 100%
-customizable, either dynamically or via stored preferences.
+la classe pagination de CodeIgniers est très facile à utiliser, et est entièrement personnalisable,
+autant de maniere dynamique que via des préférences enregistrés.
 
 .. contents::
   :local:
@@ -12,8 +12,8 @@ customizable, either dynamically or via stored preferences.
 
   <div class="custom-index container"></div>
 
-If you are not familiar with the term "pagination", it refers to links
-that allows you to navigate from page to page, like this::
+Si vous n'etes pas familier avec le terme "Pagination", il fait références aux liens permettant de 
+naviger d'une page à l'autre tel que :
 
 	« First  < 1 2 3 4 5 >  Last »
 
@@ -21,8 +21,7 @@ that allows you to navigate from page to page, like this::
 Example
 *******
 
-Here is a simple example showing how to create pagination in one of your
-:doc:`controller <../general/controllers>` methods::
+Voici un exemple simple montrant comment créer une pagination dans l'un de vos :doc:`controller <../general/controllers>` de méthodes :
 
 	$this->load->library('pagination');
 
@@ -37,19 +36,20 @@ Here is a simple example showing how to create pagination in one of your
 Notes
 =====
 
-The ``$config`` array contains your configuration variables. It is passed to
-the ``$this->pagination->initialize()`` method as shown above. Although
-there are some twenty items you can configure, at minimum you need the
-three shown. Here is a description of what those items represent:
+le tableau "$config" contient vos variables de configuration. Elle sont
+ transmisent vers la méthode ``$this->pagination->initialize()`` comme indiqué
+ ci dessus. Bien qu'il y ait une vingtaine d'items configurable, vous n'avez qu'a 
+ en représenter 3. Voici une description de ces trois items. 
 
--  **base_url** This is the full URL to the controller class/function
-   containing your pagination. In the example above, it is pointing to a
-   controller called "Test" and a function called "page". Keep in mind
-   that you can :doc:`re-route your URI <../general/routing>` if you
-   need a different structure.
--  **total_rows** This number represents the total rows in the result
-   set you are creating pagination for. Typically this number will be
+-  **base_url** Ceci est l'url complète du controleur de la classe/fonction contenant votre
+pagination. Dans l'exemple ci-dessus, il est diriger vers un contrôleur appelé "Test" et vers une 
+fonction appelé "page". Gardez en tête que :
+-Vous pouvez router votre url <../general/routing> si vous avez besoin d'une structure différente.
+	
+-  **total_rows** Ce nombre représente le total de lignes du résultat que vous créez pour la pagination.
+Généralement, ce nombre sera
    the total rows that your database query returned.
+   le nombre total de lignes que votre requête de base de données retourne.
 -  **per_page** The number of items you intend to show per page. In the
    above example, you would be showing 20 items per page.
 
