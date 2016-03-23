@@ -1,17 +1,17 @@
-##################
-Benchmarking Class
-##################
+###################
+Classe Benchmarking
+###################
 
-CodeIgniter has a Benchmarking class that is always active, enabling the
-time difference between any two marked points to be calculated.
+CodeIgniter dispose d'une classe dédiée au Benchmark qui est toujours active,
+qui permet de calculer la différence de temps entre deux points marqués.
 
-.. note:: This class is initialized automatically by the system so there
-	is no need to do it manually.
+.. note:: Cette classe est initialisée automatiquement avec le système, il
+	est donc inutile de le faire manuellement.
 
-In addition, the benchmark is always started the moment the framework is
-invoked, and ended by the output class right before sending the final
-view to the browser, enabling a very accurate timing of the entire
-system execution to be shown.
+De plus, ce benchmark est toujours démarré au moment où le framework est
+invoqué, et terminé quand la classe de sortie juste avant d'envoyer la
+vue finale au navigateur, ce qui permet d'afficher un timing très précis
+tout au long de l'affichage de l'éxecution du système.
 
 .. contents::
   :local:
@@ -20,40 +20,40 @@ system execution to be shown.
 
   <div class="custom-index container"></div>
 
-*************************
-Using the Benchmark Class
-*************************
+****************************
+Utiliser la classe Benchmark
+****************************
 
-The Benchmark class can be used within your
-:doc:`controllers </general/controllers>`,
-:doc:`views </general/views>`, or your :doc:`models </general/models>`.
-The process for usage is this:
+La classe Benchmark peut être utilisée dans vos
+:doc:`controleurs </general/controllers>`,
+:doc:`vues </general/views>`, ou vos :doc:`modèles </general/models>`.
+L'utilisation est la suivante:
 
-#. Mark a start point
-#. Mark an end point
-#. Run the "elapsed time" function to view the results
+#. Marquez un point de départ
+#. Marquez un point de fin
+#. Lancez la fonction de "temps écoulé" pour voir les résultats
 
-Here's an example using real code::
+Voici un exemple réel::
 
 	$this->benchmark->mark('code_start');
 
-	// Some code happens here
+	// Du code s'execute ici
 
 	$this->benchmark->mark('code_end');
 
 	echo $this->benchmark->elapsed_time('code_start', 'code_end');
 
-.. note:: The words "code_start" and "code_end" are arbitrary. They
-	are simply words used to set two markers. You can use any words you
-	want, and you can set multiple sets of markers. Consider this example::
+.. note:: Les mots "code_start" et "code_end" sont arbitraires. Ce sont simplement des termes
+	utilisés pour définir les deux marqueurs. Vous pouvez utiliser les mots que vous
+	souhaitez, et pouvez définir plusieurs groupes de marqueurs. Voici quelques exemples::
 
 		$this->benchmark->mark('dog');
 
-		// Some code happens here
+		// Du code s'execute ici
 
 		$this->benchmark->mark('cat');
 
-		// More code happens here
+		// Encore du code
 
 		$this->benchmark->mark('bird');
 
@@ -62,107 +62,107 @@ Here's an example using real code::
 		echo $this->benchmark->elapsed_time('dog', 'bird');
 
 
-Profiling Your Benchmark Points
-===============================
+Profiler vos points de Benchmark
+================================
 
-If you want your benchmark data to be available to the
-:doc:`Profiler </general/profiling>` all of your marked points must
-be set up in pairs, and each mark point name must end with _start and
-_end. Each pair of points must otherwise be named identically. Example::
+Si vous voulez que vos données liées au Benchmark apparaissent dans le
+:doc:`Profiler </general/profiling>` tout vos points marqués doivent être
+parametrés en paire, et chaque marqueurs doivent finir avec _start et
+_end. Autrement, chaques paires doivent être nommées de façon identique. Exemple::
 
 	$this->benchmark->mark('my_mark_start');
 
-	// Some code happens here...
+	// Du code s'execute ici...
 
 	$this->benchmark->mark('my_mark_end');
 
 	$this->benchmark->mark('another_mark_start');
 
-	// Some more code happens here...
+	// Encore plus de code s'execute ici...
 
 	$this->benchmark->mark('another_mark_end');
 
-Please read the :doc:`Profiler page </general/profiling>` for more
-information.
+Veuillez consulter la :doc:`page Profiler </general/profiling>` pour plus
+plus d'informations.
 
-Displaying Total Execution Time
+Afficher le temps d'execution
 ===============================
 
-If you would like to display the total elapsed time from the moment
-CodeIgniter starts to the moment the final output is sent to the
-browser, simply place this in one of your view templates::
+Si vous voulez afficher le temps total écoulé entre le moment où
+CodeIgniter démarre jusqu'au dernier affichage envoyé au navigateur,
+placez ceci dans un de vos modèles::
 
 	<?php echo $this->benchmark->elapsed_time();?>
 
-You'll notice that it's the same function used in the examples above to
-calculate the time between two point, except you are **not** using any
-parameters. When the parameters are absent, CodeIgniter does not stop
-the benchmark until right before the final output is sent to the
-browser. It doesn't matter where you use the function call, the timer
-will continue to run until the very end.
+Vous pouvez vous appercevoir qu'il s'agit de la même fonction utilisée dans
+les exemples ci-dessus pour calculer le temps entre deux points,
+sauf que vous n'utilisez **aucun** paramètre. Quand les paramètres sont absents,
+CodeIgniter n'arrête le benchmark juste avant que le dernier affichage est envoyé
+au navigateur. L'endroit où vous utilisez la fonction call ne change rien, le timer
+continuera à s'executer jusqu'à la fin.
 
-An alternate way to show your elapsed time in your view files is to use
-this pseudo-variable, if you prefer not to use the pure PHP::
+Une autre manière d'afficher le temps écoulé dans vos fichier de vues est
+d'utiliser cette pseudo-variable, si vous ne voulez pas utiliser le PHP pur::
 
 	{elapsed_time}
 
-.. note:: If you want to benchmark anything within your controller
-	functions you must set your own start/end points.
+.. note:: Si vous voulez utiliser le benchmark sur toutes vos fonctions dans votre contrôleur,
+	vous devez définir vous-même vos points de début/fin.
 
-Displaying Memory Consumption
-=============================
+Afficher la consommation de mémoire
+===================================
 
-If your PHP installation is configured with --enable-memory-limit, you
-can display the amount of memory consumed by the entire system using the
-following code in one of your view file::
+Si votre installation de php est configurée avec --enable-memory-limit, vous pouvez 
+afficher la quantité de mémoire consommée par l'ensemble du système en 
+utilisant le code suivant dans l'une de vos vue::
 
 	<?php echo $this->benchmark->memory_usage();?>
 
-.. note:: This function can only be used in your view files. The consumption
-	will reflect the total memory used by the entire app.
+.. note:: Cette fonction ne peut être utilisé dans vos vues. La consommation
+	reflétera la mémoire totale utilisée par l'ensemble de l'application.
 
-An alternate way to show your memory usage in your view files is to use
-this pseudo-variable, if you prefer not to use the pure PHP::
+Une méthode alternative pour afficher la mémoire utilisé dans votre vue 
+est d'utiliser cette pseudo-variable, si vous préféré ne pas utiliser le PHP pure::
 
 	{memory_usage}
 
 
-***************
-Class Reference
-***************
+*******************
+Référence de classe
+*******************
 
 .. php:class:: CI_Benchmark
 
 	.. php:method:: mark($name)
 
-		:param	string	$name: the name you wish to assign to your marker
+		:param	string	$name: Le nom que vous voulez assigner au marqueur
 		:rtype:	void
 
-		Sets a benchmark marker.
+		Définit un marqueur de Benchmark.
 
 	.. php:method:: elapsed_time([$point1 = ''[, $point2 = ''[, $decimals = 4]]])
 
-		:param	string	$point1: a particular marked point
-		:param	string	$point2: a particular marked point
-		:param	int	$decimals: number of decimal places for precision
-		:returns:	Elapsed time
+		:param	string	$point1: un point particulier
+		:param	string	$point2: un autre point particulier
+		:param	int	$decimals: nombre de places décimales pour préciser
+		:returns:	Temps écoulé
 		:rtype:	string
 
-		Calculates and returns the time difference between two marked points.
+		Calcule et retourne la différence de temps entre deux points marqués
 
-		If the first parameter is empty this function instead returns the
-		``{elapsed_time}`` pseudo-variable. This permits the full system
-		execution time to be shown in a template. The output class will
-		swap the real value for this variable.
+		Si le premier paramètre est vide, cette fonction retourne à la place
+		la pseudo-variable ``{elapsed_time}``. Cela permet au temps
+		d'execution total de s'afficher dans une template. La classe output
+		remplacera la vraie valeur par cette variable.
 
 
 	.. php:method:: memory_usage()
 
-		:returns:	Memory usage info
+		:returns:	Informations sur l'usage mémoire
 		:rtype:	string
 
-		Simply returns the ``{memory_usage}`` marker.
+		Affiche simplement le marqueur ``{memory_usage}``.
 
-		This permits it to be put it anywhere in a template without the memory
-		being calculated until the end. The :doc:`Output Class <output>` will
-		swap the real value for this variable.
+		Il peut donc être placé n'importe où dans une template sans que la mémoire
+		soit calculée avant la fin. La :doc:`classe Output <output>` remplacera
+		la vraie valeur par cette variable.
