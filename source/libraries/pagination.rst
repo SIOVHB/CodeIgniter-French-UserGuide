@@ -18,9 +18,13 @@ naviger d'une page à l'autre tel que :
 	« First  < 1 2 3 4 5 >  Last »
 
 *******
-Example
+Exemple
 *******
 
+
+C'est un petit exemple pour vous montrer comment ajouter la pagination dans
+l'une de vos méthodes du :doc:`controller <../general/controllers>`
+=======
 Voici un exemple simple montrant comment créer une pagination dans l'un de vos :doc:`controller <../general/controllers>` de méthodes :
 
 	$this->load->library('pagination');
@@ -300,15 +304,15 @@ Class Reference
 
 	.. php:method:: initialize([$params = array()])
 
-		:param	array	$params: Configuration parameters
-		:returns:	CI_Pagination instance (method chaining)
+		:param	array	$params: Paramètre de configuration
+		:returns: instance CI_Pagination (enchainement de méthodes)
 		:rtype:	CI_Pagination
 
-		Initializes the Pagination class with your preferred options.
+		Initialise la classe pagination avec vos paramètres de configuration. 
 
 	.. php:method:: create_links()
 
 		:returns:	HTML-formatted pagination
-		:rtype:	string
+		:rtype:	chaine
 
 		Returns a "pagination" bar, containing the generated links or an empty string if there's just a single page.
