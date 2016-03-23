@@ -132,7 +132,7 @@ retour à la ligne comme ceci::
 
 	{unwrap}http://example.com/un_long_lien_qui_ne_sera_pas_coupe.html{/unwrap}
 
-	Plus de text qui sera aussi
+	Plus de texte qui sera aussi
 	normalement coupé.
 
 
