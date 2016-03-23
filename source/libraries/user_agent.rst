@@ -60,9 +60,9 @@ Lorsque la classe de l'agent utilisateur est initialisée, il va tenter de déterm
 
 	echo $this->agent->platform(); // Platform info (Windows, Linux, Mac, etc.)
 
-**********************
-Référence de la classe
-**********************
+***********************
+Références de la classe
+***********************
 
 .. php:class:: CI_User_agent
 
