@@ -1,9 +1,9 @@
 #####################
 La classe User Agent
 #####################
-La classe User Agent fournit des fonctions qui vous aiderons à identifier des informations à propos
+La classe User Agent fournit des fonctions qui vous aideront à identifier des informations à propos
 des navigateurs web, appareils mobiles ou les robots qui visitent votre site.
-De plus, vous pouvez obtenir des informations telle que la langue et le jeu de caractères supporté.
+De plus, vous pouvez obtenir des informations telles que la langue et le jeu de caractères supporté.
 
 
 .. contents::
@@ -24,7 +24,7 @@ Tout comme la plupart des classes dans CodeIgniter, la classe User Agent est ini
 $this->load->library('user_agent');
 
 
-Une fois chargée, l'objet sera disponible en utilisant : ''$this->agent''
+Une fois chargé, l'objet sera disponible en utilisant : ''$this->agent''
 
 Définition de la classe User Agent
 ==================================
@@ -38,7 +38,7 @@ Exemples
 
 Lorsque la classe user agent est initialisée, elle va essayer de déterminer
 si l'agent qui navigue dans votre site web est un navigateur web, un appareil mobile
-ou un robot. Elle va également réunir des information sur la plateforme si l'option est disponible
+ou un robot. Elle va également réunir des informations sur la plateforme si l'option est disponible
 
 ::
 
@@ -132,7 +132,7 @@ Référence de classe
 		:returns:	TRUE si l'agent utilisateur a été renvoyé d'un autre site, FALSE sinon
 		:rtype:	bool
 
-		si l'agent utilisateur a été renvoyé d'un autre site .
+		
 
       Retourne TRUE / FALSE ( booléen ) si l'agent utilisateur a été renvoyé d'un autre site 
 
@@ -206,7 +206,7 @@ Référence de classe
 			}
 
 		.. note:: Cette méthode est généralement pas très fiable car certains navigateurs ne fournissent pas d'information de langue ,
-et même parmi ceux qui le font , il est pas toujours exacte .
+et même parmi ceux qui le font , il n'est pas toujours exacte .
 
 	.. php:method:: languages()
 
