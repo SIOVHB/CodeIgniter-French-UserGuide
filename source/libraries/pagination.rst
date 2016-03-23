@@ -46,13 +46,11 @@ pagination. Dans l'exemple ci-dessus, il est diriger vers un contrôleur appelé
 fonction appelé "page". Gardez en tête que :
 -Vous pouvez router votre url <../general/routing> si vous avez besoin d'une structure différente.
 	
--  **total_rows** Ce nombre représente le total de lignes du résultat que vous créez pour la pagination.
-Généralement, ce nombre sera
-   the total rows that your database query returned.
-   le nombre total de lignes que votre requête de base de données retourne.
--  **per_page** The number of items you intend to show per page. In the
-   above example, you would be showing 20 items per page.
-
+TOTAL_ROWS Ce nombre représente le nombre total de lignes dans le jeu de résultats que vous créez 
+la pagination pour. Généralement , ce nombre sera le nombre total de lignes que votre requête de base
+ de données retournée.
+-  **per_page** Le nombre d'articles que vous souhaitez afficher par page. Dans l'exemple ci - dessus, 
+vous montrerez 20 items par page.
 The ``create_links()`` method returns an empty string when there is no
 pagination to show.
 
