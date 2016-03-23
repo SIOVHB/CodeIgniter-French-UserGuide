@@ -55,7 +55,7 @@ cet exemple suppose que vous envoyer le mail depuis l’un de vos
 Régler les préférences de mail
 ==============================
 
-Il y a 21 préfrences différentes disponniblent pour affiner comment vos mails
+Il y a 21 préférences différentes disponibles pour affiner comment vos mails
 seront envoyés. Autrement, vous pouvez les régler manuellement comment nous le
 décrivons ici, ou automatiquement via les préférences stockées dans le fichier
 de configuration, décrit ci-dessous :
@@ -212,12 +212,14 @@ Classe de Réference
 		:returns:	CI_Email instance (method chaining)
 		:rtype:	CI_Email
 
-		Sets the BCC email address(s). Just like the ``to()`` method, can be a single
-		e-mail, a comma-delimited list or an array.
+                Spécifier l’adresse email BCC. Tout comme la méthode ``to()``,
+                cela peut-être une adresse unique, une liste délimitée par des
+                virgules ou un tableau.
 
-		If ``$limit`` is set, "batch mode" will be enabled, which will send
-		the emails to batches, with each batch not exceeding the specified
-		``$limit``.
+                Si la variable ``$limit`` est spécifiée, le « mode d’envoi en
+                masse » sera activé, qui enverra les mails aux correspondants,
+                où chaque correspondant ne dépassera pas la ``$limit``
+                spécifiée.
 
 	.. php:method:: subject($subject)
 
@@ -225,7 +227,7 @@ Classe de Réference
 		:returns:	CI_Email instance (method chaining)
 		:rtype:	CI_Email
 
-		Sets the email subject::
+		Spécifier le sujet du mail::
 
 			$this->email->subject('This is my subject');
 
@@ -235,7 +237,7 @@ Classe de Réference
 		:returns:	CI_Email instance (method chaining)
 		:rtype:	CI_Email
 
-		Sets the e-mail message body::
+                Spécifier le corps de texte du mail::
 
 			$this->email->message('This is my message');
 
@@ -245,16 +247,17 @@ Classe de Réference
 		:returns:	CI_Email instance (method chaining)
 		:rtype:	CI_Email
 
-		Sets the alternative e-mail message body::
+                Spécifier le corps de texte alternatif::
 
 			$this->email->set_alt_message('This is the alternative message');
 
-		This is an optional message string which can be used if you send
-		HTML formatted email. It lets you specify an alternative message
-		with no HTML formatting which is added to the header string for
-		people who do not accept HTML email. If you do not set your own
-		message CodeIgniter will extract the message from your HTML email
-		and strip the tags.
+                Il s’agît d’un chaîne optionnelle qui peut être utilisée si vous
+                envoyez un mail formatté en HTML. Ceci vous permet de spécifier
+                un message alternatif non formatté en HTML qui est ajouté au
+                début du message pour les personnes qui n’acceptent pas les
+                mails en HTML. Si vous ne spécifiez pas votre propre message,
+                CodeIgniter extraira depuis votre mail HTML et retirera les
+                balises HTML.
 
 	.. php:method:: set_header($header, $value)
 
@@ -263,7 +266,7 @@ Classe de Réference
 		:returns:	CI_Email instance (method chaining)
 		:rtype: CI_Email
 
-		Appends additional headers to the e-mail::
+		Ajouter des en-têtes additionnels au mail::
 
 			$this->email->set_header('Header1', 'Value1');
 			$this->email->set_header('Header2', 'Value2');
@@ -274,9 +277,10 @@ Classe de Réference
 		:returns:	CI_Email instance (method chaining)
 		:rtype: CI_Email
 
-		Initializes all the email variables to an empty state. This method
-		is intended for use if you run the email sending method in a loop,
-		permitting the data to be reset between cycles.
+                Initialise à zéro toutes les variables du mail. Cette méthode a
+                pour but d’être utilisée si vous envoyez le mail dans une
+                boucle, permettant aux données d’être réinitialisées entre
+                chaque cycle.
 
 		::
 
@@ -291,8 +295,8 @@ Classe de Réference
 				$this->email->send();
 			}
 
-		If you set the parameter to TRUE any attachments will be cleared as
-		well::
+                Si vous spécifiez le paramètre à TRUE, chaque pièce-jointe sera
+                aussi supprimée::
 
 			$this->email->clear(TRUE);
 
@@ -302,24 +306,26 @@ Classe de Réference
 		:returns:	TRUE on success, FALSE on failure
 		:rtype:	bool
 
-		The e-mail sending method. Returns boolean TRUE or FALSE based on
-		success or failure, enabling it to be used conditionally::
+                La méthode d’envoi de mail. Retourne un booléen TRUE ou FALSE
+                basé sur le succès ou l’échec, permettant d’être utilisé
+                conditionnellement::
 
 			if ( ! $this->email->send())
 			{
 				// Generate error
 			}
 
-		This method will automatically clear all parameters if the request was
-		successful. To stop this behaviour pass FALSE::
+                Cette méthode effacera automatiquement tous les paramètres si la
+                requête s’est bien déroulée. Pour arrêter ce comportement,
+                passez FALSE comme paramètre de la fonction::
 
 		 	if ($this->email->send(FALSE))
 		 	{
 		 		// Parameters won't be cleared
 		 	}
 
-		.. note:: In order to use the ``print_debugger()`` method, you need
-			to avoid clearing the email parameters.
+		.. note:: Pour éviter l’utilisation de la méthode ``print_debugger()``, vous ne devez
+			pas effacer les paramètres du mail.
 
 	.. php:method:: attach($filename[, $disposition = ''[, $newname = NULL[, $mime = '']]])
 
@@ -332,30 +338,34 @@ Classe de Réference
 		:returns:	CI_Email instance (method chaining)
 		:rtype:	CI_Email
 
-		Enables you to send an attachment. Put the file path/name in the first
-		parameter. For multiple attachments use the method multiple times.
-		For example::
+                Vous permet d’envoyer une pièce jointe. Mettre le nom/chemin du
+                fichier en premier paramètre. Pour de multiples pièces-jointes,
+                utilisez la méthode plusieurs fois.
+		Par exemple::
 
 			$this->email->attach('/path/to/photo1.jpg');
 			$this->email->attach('/path/to/photo2.jpg');
 			$this->email->attach('/path/to/photo3.jpg');
 
-		To use the default disposition (attachment), leave the second parameter blank,
-		otherwise use a custom disposition::
+                Pour utiliser la disposition par défaut (pièce-jointe), laissez
+                le second paramètre vide, autrement utilisez une disposition
+                personnalisée::
 
 			$this->email->attach('image.jpg', 'inline');
 
-		You can also use a URL::
+		Vous pouvez aussi utiliser une URL::
 
 			$this->email->attach('http://example.com/filename.pdf');
 
-		If you'd like to use a custom file name, you can use the third paramater::
+                Si vous voulez utiliser un nom de fichier particulier, vous
+                pouvez utiliser le troisième paramètre::
 
 			$this->email->attach('filename.pdf', 'attachment', 'report.pdf');
 
-		If you need to use a buffer string instead of a real - physical - file you can
-		use the first parameter as buffer, the third parameter as file name and the fourth
-		parameter as mime-type::
+                Si vous devez utiliser une mémoire tempon à la place d’un
+                fichier réel — physique — vous pouvez utiliser le premier
+                paramètre comme mémoire tampon, le troisième paramètre comme nom
+                de fichier et le quatrière comme mime-type::
 
 			$this->email->attach($buffer, 'attachment', 'report.pdf', 'application/pdf');
 
@@ -365,9 +375,9 @@ Classe de Réference
 		:returns:	Attachment Content-ID or FALSE if not found
 		:rtype:	string
  
-		Sets and returns an attachment's Content-ID, which enables your to embed an inline
-		(picture) attachment into HTML. First parameter must be the already attached file name.
-		::
+                Spécifie et retourne le Content-ID de la pièce jointe, qui vous
+                permet d’ajouter une image dans le message HTML. Le premier
+                paramètre doit être un nom de pièce-jointe.::
  
 			$filename = '/img/photo1.jpg';
 			$this->email->attach($filename);
@@ -387,13 +397,15 @@ Classe de Réference
 		:returns:	Formatted debug data
 		:rtype:	string
 
-		Returns a string containing any server messages, the email headers, and
-		the email messsage. Useful for debugging.
+                Retourne une chaîne de caractères contenant tous les messages du
+                serveur, les en-têtes, et le contenu des messages. C’est très
+                utile pour débugguer.
 
-		You can optionally specify which parts of the message should be printed.
-		Valid options are: **headers**, **subject**, **body**.
+                Optionnellement, vous pouvez spécifier quelles parties du
+                message devront être imprimées.
+		Les options valides sont : **headers**, **subject**, **body**.
 
-		Example::
+		Exemple::
 
 			// You need to pass FALSE while sending in order for the email data
 			// to not be cleared - if that happens, print_debugger() would have
