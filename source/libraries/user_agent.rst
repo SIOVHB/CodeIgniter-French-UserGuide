@@ -3,7 +3,7 @@ La classe User Agent
 #####################
 La classe User Agent fournit des fonctions qui vous aiderons à identifier des informations à propos
 des navigateurs web, appareils mobiles ou les robots qui visitent votre site.
-De plus, vous pouvez obtenir telle que la langue et le jeu de caractères soutenues.
+De plus, vous pouvez obtenir des informations telle que la langue et le jeu de caractères supporté.
 
 
 .. contents::
