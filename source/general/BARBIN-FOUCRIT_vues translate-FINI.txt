@@ -1,0 +1,180 @@
+#####
+Vues
+#####
+
+Une vue est simplement une page web, ou un morceau de page, comme un entête, un pied de page, une barre de côté, etc... En fait, les vues peuvent être dynamiquement intégré avec d'autres vues si vous avez besoin de ce type de hiérarchie. 
+
+Les vues ne sont jamais appelé directement, elles doivent être chargées par un contrôleur :doc:`controller <controllers>`. Souvenez vous que dans un modèle MVC, le controleur agit comme un policier de trafique, alors il s'occupe de récupérer une vue particulière. Si vous n'avez pas lu cette page :doc:`Controllers <controllers>`, vous devriez le faire avant de continuer.
+
+En utilisant le contrôleur d'exemple que vous avez créé dans la page :doc:`controller <controllers>`, ajoutons-y une vue.
+
+Création d'une vue
+==================
+
+En utilisant votre éditeur de texte, créer un fichier appelé blogview.php, et mettez-y ce qui suit : :: 
+
+	<html>
+	<head>
+		<title>Mon blog</title>
+	</head>
+	<body>
+		<h1>Bienvenue dans mon blog!</h1>
+	</body>
+	</html>
+	
+Puis sauvegarder le fichier dans votre dossier *application/views/*
+
+Chargement d'une vue
+====================
+
+Pour charger le fichier d'une vue particulière, vous allez utilisé la méthode suivante : ::
+
+	$this->load->view('nom');
+
+Où 'name' est le nom du fichier de la vue.
+
+.. note:: L'extension du fichier .php n'a pas besoin d'être spécifié à moins que vous utilisez quelque chose d'autre que ".php".
+
+Maintenant, ouvrez le ficher du contrôleur que vous avez crée auparavant, appelé Blog.php, et remplacer la déclaration "echo" avec la méthode du chargement de la vue. ::
+
+	<?php
+	class Blog extends CI_Controller {
+
+		public function index()
+		{
+			$this->load->view('vuesBlog');
+		}
+	}
+
+Si vous visitez votre site en utilisant l'url que vous avez faite auparavant, vous devriez voir votre nouvelle vue. L'url ressemblait à ce qui suit : ::
+	example.com/index.php/blog/
+
+Chargement de plusieurs vues
+============================
+
+CodeIgniter va intelligemment manipuler plusieurs appels vers ``$this->load->view()`` depuis un contrôleur. Si plusieurs appels arrivent en même temps, ils seront ajoutés ensemble. Par exemple, vous pouvez souhaité avoir une vue d'entête, une vue de menu, une vue de contenu et une vue de pied de page. Ça devrait ressemble à ce qui suit : ::
+
+	<?php
+
+	class Page extends CI_Controller {
+
+		public function index()
+		{
+			$data['page_title'] = 'Votre titre';
+			$this->load->view('entete');
+			$this->load->view('menu');
+			$this->load->view('contenu', $data);
+			$this->load->view('pied de page');
+		}
+
+	}
+
+Dans l'exemple ci-dessus, nous avons utiliser "l'ajout de données dynamiques", ce que vous allez voir ci-dessous.
+
+Le stockage des vues dans un sous-répertoire
+============================================
+
+Votre fichier de vue peut aussi être stocké dans un sous-répertoire si vous préférez ce type d'organisation. Quand vous le faites, vous devrez inclure le nom du répertoire chargeant la vue. Exemple : ::
+
+	$this->load->view('nomDossier/nomFichier');
+
+L'ajout dynamique de données dans une vue 
+=========================================
+
+Les données sont passées depuis le contrôleur vers la vue par le biais d'un **tableau** ou d'un **object** dans le second paramètre de la méthode du chargement de la vue. Ici un exemple utilisant un tableau : ::
+
+	$data = array(
+		'title' => 'Mon titre',
+		'heading' => 'Mon entête',
+		'message' => 'Mon message'
+	);
+
+	$this->load->view('vuesBlog', $donnee);
+
+Et ici, un exemple utilisant un objet : :: 
+
+	$data = new Someclass();
+	$this->load->view('vuesBlog', $donnee);
+
+.. note:: Si vous utilisez un objet, les propriété de l'objet seront transformées en éléments de tableau.
+
+Essayons-le avec votre fichier de contrôleur. Ouvrez-le et ajoutez ce code ::
+
+	<?php
+	class Blog extends CI_Controller {
+
+		public function index()
+		{
+			$donnee['titre'] = "Mon vrai titre";
+			$donnee['entete'] = "Ma vraie entête";
+
+			$this->load->view('vuesBlog', $donnee);
+		}
+	}
+
+
+Maintenant ouvrez votre fichier de vue et changer le texte en variable qui correspond aux clés du tableau dans vos données. ::
+
+	<html>
+	<head>
+		<title><?php echo $titre;?></title>
+	</head>
+	<body>
+		<h1><?php echo $entete;?></h1>
+	</body>
+	</html>
+
+Puis charger la page dans l'url que vous avez utilisé et vous deviez voir les variables changées.
+
+Création de boucles 
+===================
+
+Le tableau de données que vous transmettez à vos fichiers de vue n'est pas limité à de simples variables. Vous pouvez passer des tableaux multidimensionnels, qui peuvent être mis en boucle générer plusieurs lignes. Par exemple, si vous extrayez des données de votre base de données il sera typiquement sous la forme d'un tableau multidimensionnel.
+
+Voici un exemple simple. Ajoutez ceci à votre contrôleur : ::
+
+	<?php
+	class Blog extends CI_Controller {
+
+		public function index()
+		{
+			$data['listeChosesAFaire'] = array('Nettoyer la maison', 'Appeler maman', 'Promener Errands');
+
+			$data['title'] = "Mon vrai titre";
+			$data['heading'] = "Ma vraie entête";
+
+			$this->load->view('vuesBlog', $donnee);
+		}
+	}
+
+Maintenant, ouvrez votre fichier de vue et créez une boucle ::
+
+	<html>
+	<head>
+		<title><?php echo $titre;?></title>
+	</head>
+	<body>
+		<h1><?php echo $entete;?></h1>
+	
+		<h3>Ma liste des choses à faire</h3>
+
+		<ul>
+		<?php foreach ($listeChosesAFaireas $item):?>
+	
+			<li><?php echo $item;?></li>
+	
+		<?php endforeach;?>
+		</ul>
+
+	</body>
+	</html>
+
+.. note:: Vous allez remarquer que dans l'exemple ci-dessus, nous utilisons des syntaxes alternatifs de PHP. Si vous n'y êtes pas habitués, vous pouvez en apprendre plus :doc:`<ici :alternative_php>`.
+
+Renvoyer des vues en tant que données
+=====================================
+
+Il y a une troisième paramètre **facultatif** qui vous laisse changer le comportement de la méthode alors il renvoie des données en chaîne de caractères au lieu de l'envoyer sur votre navigateur. Cela peut être utile si vous voulez traiter les données d'une certaine manière. Si vous définissez le paramètre sur *TRUE* (vrai en booléen) il retournera des données. La valeur par défaut est *false*
+(faux) ce qui l'envoie sur votre navigateur. Souvenez-vous de l'assigner à une variable si vous voulez les données retournées ::
+
+	$string = $this->load->view('monFichier', '', TRUE)
