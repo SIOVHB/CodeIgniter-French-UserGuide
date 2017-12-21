@@ -1,20 +1,18 @@
 ######
-Models
+Modèle
 ######
 
-Models are **optionally** available for those who want to use a more
-traditional MVC approach.
 
-.. contents:: Page Contents
+Les modèles disponibles sont **optionnel** pour ceux qui veulent utiliser une approche MVC.
 
-What is a Model?
+.. contents:: Contenu de la page
+
+Qu'est ce qu'un modèle?
 ================
 
-Models are PHP classes that are designed to work with information in
-your database. For example, let's say you use CodeIgniter to manage a
-blog. You might have a model class that contains functions to insert,
-update, and retrieve your blog data. Here is an example of what such a
-model class might look like::
+
+Les modèles sont des classes PHP qui sont faites pour travailler avec les informations des bases de données. Par exemple, disons que vous utilisez CodeIgniter pour gérer un blog. Vous aurez un modèle de classe qui contient des fonctions pour insérer/extraire des données et les mettre à jour.
+Voici un exemple de classe du modèle.
 
 	class Blog_model extends CI_Model {
 
@@ -24,7 +22,7 @@ model class might look like::
 
 		public function __construct()
 		{
-			// Call the CI_Model constructor
+			// Appelle le constructeur CI modèle.
 			parent::__construct();
 		}
 
@@ -36,7 +34,7 @@ model class might look like::
 
 		public function insert_entry()
 		{
-			$this->title	= $_POST['title']; // please read the below note
+			$this->title	= $_POST['title']; // lire les note ci-dessous
 			$this->content	= $_POST['content'];
 			$this->date	= time();
 
@@ -54,22 +52,19 @@ model class might look like::
 
 	}
 
-.. note:: The methods in the above example use the :doc:`Query Builder
-	<../database/query_builder>` database methods.
-
-.. note:: For the sake of simplicity in this example we're using ``$_POST``
-	directly. This is generally bad practice, and a more common approach
-	would be to use the :doc:`Input Library <../libraries/input>`
+.. note:: La méthode au dessus de l’exemple utilise  les :doc:`Query Builder
+	<../database/query_builder>` méthodes de base de données
+.. note:: Pour simplifier dans cet exemple, nous utilisons ``$_POST``
+	directement . C'est généralement une mauvaise manière d'utiliser une variable $_POST directement, la manière la plus idéale serais de cette façon :doc:`Input Library <../libraries/input>`
 	``$this->input->post('title')``.
 
-Anatomy of a Model
+Anatomie du modèle
 ==================
 
-Model classes are stored in your **application/models/** directory.
-They can be nested within sub-directories if you want this type of
-organization.
+Les classes d'un modèle sont stockéss dans le répertoire **application/models/**.
+Elles peuvent être implanter dans ce sous répertoire si vous voulez se type d'organisation de code.
 
-The basic prototype for a model class is this::
+Le prototype basique pour une classe modèle est comme ça::
 
 	class Model_name extends CI_Model {
 
@@ -80,11 +75,11 @@ The basic prototype for a model class is this::
 
 	}
 
-Where **Model_name** is the name of your class. Class names **must** have
-the first letter capitalized with the rest of the name lowercase. Make
-sure your class extends the base Model class.
 
-The file name must match the class name. For example, if this is your class::
+Où **Model_name** est le nom de la classe. Les noms de classes **doivent** avoir la notation Camel.
+Faire en sorte que la classe hérite la classe du modèle de base.
+
+Le nom du fichier doit correspondre au nom de la classe. Voici un exemple::
 
 	class User_model extends CI_Model {
 
@@ -95,41 +90,36 @@ The file name must match the class name. For example, if this is your class::
 
 	}
 
-Your file will be this::
+Le fichier sera comme ça::
 
 	application/models/User_model.php
 
-Loading a Model
+Chargement d'un modèle.
 ===============
 
-Your models will typically be loaded and called from within your
-:doc:`controller <controllers>` methods. To load a model you will use
-the following method::
 
+Votre modèle sera typiquement chargé et appelé depuis les méthodes du contrôleurs.
+Pour charger un modèle vous allez utiliser cette méthode::
 	$this->load->model('model_name');
 
-If your model is located in a sub-directory, include the relative path
-from your models directory. For example, if you have a model located at
-*application/models/blog/Queries.php* you'll load it using::
+Si votre modèle est situé dans un sous répertoire, incluez le chemin relatif du répertoire modèle. Par exemple, si vous avez un modèle situé à *application/models/blog/Queries.php* vous allez l’appeler avec la commande ci-dessous:: 
 
 	$this->load->model('blog/queries');
 
-Once loaded, you will access your model methods using an object with the
-same name as your class::
+Une fois chargé, vous allez accéder au méthode du modèle utilisant un objet avec le même nom de votre classe::
 
 	$this->load->model('model_name');
 
 	$this->model_name->method();
 
-If you would like your model assigned to a different object name you can
-specify it via the second parameter of the loading method::
+Si vous voulez assigner un modèle à un objet différent, on peut le spécifier via un second paramètre dans la méthode de chargement::
 
 	$this->load->model('model_name', 'foobar');
 
 	$this->foobar->method();
 
-Here is an example of a controller, that loads a model, then serves a
-view::
+
+Voici un exemple d'un controleur qui charge un modèle, qui charge une vue::
 
 	class Blog_controller extends CI_Controller {
 
@@ -144,32 +134,29 @@ view::
 	}
 	
 
-Auto-loading Models
+Chargement automatique d'un modèle.
 ===================
 
-If you find that you need a particular model globally throughout your
-application, you can tell CodeIgniter to auto-load it during system
-initialization. This is done by opening the
-**application/config/autoload.php** file and adding the model to the
-autoload array.
 
-Connecting to your Database
+
+Si vous pensez que vous aurez besoin d'un modèle particulier globalement tout au long de votre application, vous pouvez assignez à CodeIgniter d’auto-charger le modèle durant l'initialisation du système. Cela peut être fait en ouvrant le fichier autoload.php se situant dans le répertoire **appplication/config/autoload.php** et ajouter le modèle dans le tableau d'auto-chargement (autoload array).
+
+
+Connexion à la base de données
 ===========================
 
-When a model is loaded it does **NOT** connect automatically to your
-database. The following options for connecting are available to you:
+Quand un modèle est chargé il ne se connecte pas automatiquement à votre base de donnée.
+Voici les méthodes disponibles pour se connecter à votre base:
 
--  You can connect using the standard database methods :doc:`described
-   here <../database/connecting>`, either from within your
-   Controller class or your Model class.
--  You can tell the model loading method to auto-connect by passing
-   TRUE (boolean) via the third parameter, and connectivity settings,
-   as defined in your database config file will be used::
+
+ - Vous pouvez connecter  la base en utilisant la méthode standard :doc:`décrit ici <../database/connecting>`,soit à partir de votre classe Controller ou de votre classe Model.
+
+ - Vous pouvez assigner au modèle de charger la méthode d'auto-connexion en passant la valeur vrai (TRUE(boolean)) qui est une   valeur booléenne via le troisième paramètre, et les paramètres de connectivité,
+comme défini dans votre fichier de configuration de base de données sera utilisé comme cela ::
 
 	$this->load->model('model_name', '', TRUE);
 
--  You can manually pass database connectivity settings via the third
-   parameter::
+- Vous pouvez manuellement configurer les paramètres de connexion de la base de données via le troisième paramètre::
 
 	$config['hostname'] = 'localhost';
 	$config['username'] = 'myusername';
