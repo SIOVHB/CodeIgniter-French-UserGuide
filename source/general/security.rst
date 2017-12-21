@@ -1,205 +1,141 @@
 ########
-Security
+Sécurité
 ########
 
-This page describes some "best practices" regarding web security, and
-details CodeIgniter's internal security features.
+Cette page décrit quelques une des "meilleurs pratiques" au niveau de la sécurité web et des détails sur les fonctionnalités de sécurité interne de CodeIgniter.
 
-.. note:: If you came here looking for a security contact, please refer to
-	our `Contribution Guide <../contributing/index>`.
+.. Note :: Si vous êtes venu à la recherche d'un contact à propos de la sécurité, veuillez vous référer au Guide de Contribution. <../contributing/index>`.
 
-URI Security
-============
+Sécurité des URI
+=============================
 
-CodeIgniter is fairly restrictive regarding which characters it allows
-in your URI strings in order to help minimize the possibility that
-malicious data can be passed to your application. URIs may only contain
-the following:
-
--  Alpha-numeric text (latin characters only)
+CodeIgniter est plutôt restrictif par rapport aux caractères qu'il autorise dans les chaînes d'URI. Afin de minimiser la possibilité que ds données malveillantes puissent être transmises à votre application. Les URIs ne peuvent contenir que les éléments suivants : 
+-  Texte Alpha-Numériques (caractères latins uniquement)
 -  Tilde: ~
--  Percent sign: %
--  Period: .
--  Colon: :
--  Underscore: \_
--  Dash: -
--  Space
+-  Signe de pourcentage : %
+-  Point à la ligne: .
+-  Deux-points: :
+-  Underscore : \_
+-  Tiret: -
+-  Espace
 
 Register_globals
 ================
 
-During system initialization all global variables that are found to exist
-in the ``$_GET``, ``$_POST``, ``$_REQUEST`` and ``$_COOKIE`` are unset.
+Durant l'initialisation du système, les variables globales qui existe dans les tableaux  ``$_GET``, ``$_POST``, ``$_REQUEST`` and ``$_COOKIE`` sont supprimées.
 
-The unsetting routine is effectively the same as *register_globals = off*.
+La routine de suppression est en fait la même que *register_globals = off*.
 
 display_errors
 ==============
 
-In production environments, it is typically desirable to "disable" PHP's
-error reporting by setting the internal *display_errors* flag to a value
-of 0. This disables native PHP errors from being rendered as output,
-which may potentially contain sensitive information.
+Dans l'environnement de production, il est généralement souhaitable de "désactiver" les rapports d'erreur de PHP en définissant l'indicateur interne "display_errors" à 0. Cela empêche les erreurs PHP natives d'être affichés, ce qui pourrait afficher des informations sensibles.
 
-Setting CodeIgniter's **ENVIRONMENT** constant in index.php to a value of
-**\'production\'** will turn off these errors. In development mode, it is
-recommended that a value of 'development' is used. More information
-about differentiating between environments can be found on the
-:doc:`Handling Environments <environments>` page.
+Paramétrer la constante **ENVIRONMENT** de CodeIngiter dans index.php à la valeur de 
+**\'production\'** n'affichera plus ces erreurs. en mode développement, il est recommandée d'utilisé la valeur 'development'. Plus d'information peuvent être trouvée sur les différences entre les différents environnements sur 
+:doc: `Handling Environments <environments>` page.
 
 magic_quotes_runtime
 ====================
 
-The *magic_quotes_runtime* directive is turned off during system
-initialization so that you don't have to remove slashes when retrieving
-data from your database.
+La directive *magic_quotes_runtime* sont désactivés pensant l'initialisation du système donc vous n'avez pas à enlevé les slashes quand vous récupérer des données depuis la base de données.
 
-**************
-Best Practices
-**************
+*************************
+Bonne pratiques.
+*************************
 
-Before accepting any data into your application, whether it be POST data
-from a form submission, COOKIE data, URI data, XML-RPC data, or even
-data from the SERVER array, you are encouraged to practice this three
-step approach:
+Avant d'importer une donnée dans votre application, qu'elle soit soumise avec POST lors de la soumission d'un formulaire, qu'elle vienne d'un cookie, d'une URI, d'un fichier XML ou même du tableau "SERVER", vous êtes encouragés à utilisé ces 3 étapes d'approches :
 
-#. Validate the data to ensure it conforms to the correct type, length,
-   size, etc.
-#. Filter the data as if it were tainted.
-#. Escape the data before submitting it into your database or outputting
-   it to a browser.
+#. Validez les données pour vous assurer qu'elles soient conforme au type, à la longueur, à la taille .
+#. Filtrer les données comme si elles étaient corrompues.
+#. Échapper les données avant de les soumettre dans votre base de données ou de les transmettre à un navigateur.
 
-CodeIgniter provides the following functions and tips to assist you
-in this process:
+CodeIgniter fournit les fonctions et conseils suivant pour vous aider dans ce processus :
 
 XSS Filtering
 =============
 
-CodeIgniter comes with a Cross Site Scripting filter. This filter
-looks for commonly used techniques to embed malicious JavaScript into
-your data, or other types of code that attempt to hijack cookies or
-do other malicious things. The XSS Filter is described
-:doc:`here <../libraries/security>`.
+CodeIgniter viens avec un filtre "Cross Site Scripting". Ce filtre recherche les techniques couramment utilisées pour intégrer du JavaScript malveillant dans vos donnée :doc:` le filtre est décrit ici <../libraries/security>`.
 
-.. note:: XSS filtering should *only be performed on output*. Filtering
-	input data may modify the data in undesirable ways, including
-	stripping special characters from passwords, which reduces
-	security instead of improving it.
+.. note:: Le filtrage XSS devrait *n'être effectué qu'en sortie*. Le filtrage des données d'entrée peut modifier les données de manière indésirable, en enlevant des caractères spéciaux des mots de passes, ce qui peut réduire la sécurité au lieu de l'améliorer.
 
 CSRF protection
 ===============
 
-CSRF stands for Cross-Site Request Forgery, which is the process of an
-attacker tricking their victim into unknowingly submitting a request.
+CSRF veut dire "Cross-Site Request Forgery", Qui est le processus par lequel un attaquant piège sa victime en l'obligeant à soumettre une requête sans le savoir.
 
-CodeIgniter provides CSRF protection out of the box, which will get
-automatically triggered for every non-GET HTTP request, but also needs
-you to create your submit forms in a certain way. This is explained in
-the :doc:`Security Library <../libraries/security>` documentation.
+CodeIgniter offre une protection CRSF toute prête, qui se déclenche automatiquement pour chaque requête HTTP qui n'est pas en GET, mais vous impose également de créer vos formulaires de soumission d'une certaine façon. Tout est expliqué dans la  :doc:` Documentation de la librairies de sécurité <../libraries/security>`.
 
-Password handling
-=================
+Gestion des mots de passe
+============================
 
-It is *critical* that you handle passwords in your application properly.
+Il est *très important* que vous gériez les mots de passes de manière correcte dans votre application.
 
-Unfortunately, many developers don't know how to do that, and the web is
-full of outdated or otherwise wrongful advices, which doesn't help.
+Malheureusement, beaucoup de développeurs ne savent pas comment faire ça, et le web est rempli de conseils obsolète ou mauvais, ce qui n'aide pas vraiment.
 
-We would like to give you a list of combined do's and don'ts to help you
-with that. Please read below.
+Nous aimerions vous donner une liste de "faire et ne pas faire" pour vous aider avec tout ça :
 
--  DO NOT store passwords in plain-text format.
+-  NE STOCKER PAS les mots de passe en texte brut
 
-   Always **hash** your passwords.
+   Toujours **crypter (hash)** vos mots de passe.
 
--  DO NOT use Base64 or similar encoding for storing passwords.
+-  N'UTILISER PAS le Base64 ou d'autre encodage similaire pour stocker vos mots de passe.
 
-   This is as good as storing them in plain-text. Really. Do **hashing**,
-   not *encoding*.
+   Ça reviens à les stocker en texte brut, **hacher**,
+   pas *encoder*.
 
-   Encoding, and encryption too, are two-way processes. Passwords are
-   secrets that must only be known to their owner, and thus must work
-   only in one direction. Hashing does that - there's *no* un-hashing or
-   de-hashing, but there is decoding and decryption.
+   Encoder et hachage sont des processus bidirectionnels. Les mots de passe sont secret et doivent être uniquement connus de leurs propriétaire et ne doivent marcher que dans une seule direction.
+-  N'UTILISER PAS des algorithmes de hachage faible ou qui ont déjà été cassé comme le MD5 ou le SHA1.
+   Ces algorithmes sont vieux, ont prouvés qu'ils était défectueux et n'ont pas été pensée pour le cryptage de mot de passe en premier lieux.
 
--  DO NOT use weak or broken hashing algorithms like MD5 or SHA1.
+  Aussi, N'INVENTER PAS vos propres algorithmes.
 
-   These algorithms are old, proven to be flawed, and not designed for
-   password hashing in the first place.
+   N'utilisez que des algorithmes de hachage de mot fort, tel que BCrypt, qui est utiliser dans les fonctions de hachage de mot de passe de PHP.
 
-   Also, DON'T invent your own algorithms.
+Utilisez ces algorithmes s'il vous plait, même si votre version de php n'est pas PHP5.5 ou plus, CodeIgniter vous les fournit.
 
-   Only use strong password hashing algorithms like BCrypt, which is used
-   in PHP's own `Password Hashing <http://php.net/password>`_ functions.
+N'ENVOYEZ ou N'AFFICHEZ jamais votre mot de passe au format texte.
 
-   Please use them, even if you're not running PHP 5.5+, CodeIgniter
-   provides them for you as long as you're running at least PHP version
-   5.3.7 (and if you don't meet that requirement - please, upgrade).
+Même pour le propriétaire du mot de passe, si vous avez besoin d'une fonctionnalité "Mot de passe oublié, générez simplement une seul fois un nouveau mot de passe (une seul fois, c'est important) et envoyer le à la place.
 
-   If you're one of the really unlucky people who can't even upgrade to a
-   more recent PHP version, use `hash_pbkdf() <http://php.net/hash_pbkdf2>`,
-   which we also provide in our compatibility layer.
+N'IMPOSER pas de limites inutiles sur les mots de passe de vos utilisateurs
 
--  DO NOT ever display or send a password in plain-text format!
+Si vous utilisez un algorithme de hachage autre que BCrypt (qui à une limite de 72 caractères), vous devriez définir une limite relativement haute dans la taille des passwords pour atténuer les attaques DOS (Deny of Service - Attaque par déni de service), disons 1024 caractères.
 
-   Even to the password's owner, if you need a "Forgotten password"
-   feature, just randomly generate a new, one-time (this is also important)
-   password and send that instead.
-
--  DO NOT put unnecessary limits on your users' passwords.
-
-   If you're using a hashing algorithm other than BCrypt (which has a limit
-   of 72 characters), you should set a relatively high limit on password
-   lengths in order to mitigate DoS attacks - say, 1024 characters.
-
-   Other than that however, there's no point in forcing a rule that a
-   password can only be up to a number of characters, or that it can't
-   contain a certain set of special characters.
-
-   Not only does this **reduce** security instead of improving it, but
-   there's literally no reason to do it. No technical limitations and
-   no (practical) storage constraints apply once you've hashed them, none!
-
-Validate input data
-===================
-
-CodeIgniter has a :doc:`Form Validation Library
-<../libraries/form_validation>` that assists you in
-validating, filtering, and prepping your data.
-
-Even if that doesn't work for your use case however, be sure to always
-validate and sanitize all input data. For example, if you expect a numeric
-string for an input variable, you can check for that with ``is_numeric()``
-or ``ctype_digit()``. Always try to narrow down your checks to a certain
-pattern.
-
-Have it in mind that this includes not only ``$_POST`` and ``$_GET``
-variables, but also cookies, the user-agent string and basically
-*all data that is not created directly by your own code*.
+A part cela, il ne sert cependant à rien de forcer des règles de limite dans la limite de caractères du mot de passe ou d’empêcher certain caractères spéciaux.
 
 
-Escape all data before database insertion
-=========================================
+   Non seulement ça **réduit**  la sécurité au lieu de l'améliorer,
+ mais il n'y a littéralement aucune raison de le faire.
+Aucune limite technique et aucune contrainte de stockage (pratique) ne s'appliquent une fois que vous les avez hachées, aucune ! 
 
-Never insert information into your database without escaping it.
-Please see the section that discusses :doc:`database queries
-<../database/queries>` for more information.
 
-Hide your files
-===============
+Valider les données en entrée
+===================================
 
-Another good security practice is to only leave your *index.php*
-and "assets" (e.g. .js, css and image files) under your server's
-*webroot* directory (most commonly named "htdocs/"). These are
-the only files that you would need to be accessible from the web.
+CodeIgniter a une :doc: `Librarie de validation de formulaires../libraries/form_validation>` Qui vous assiste pour valider, filtrer et préparer vos données.
 
-Allowing your visitors to see anything else would potentially
-allow them to access sensitive data, execute scripts, etc.
+Même si cela ne fonctionne pas pour votre cas d'utilisation, soyez sur de toujours valider et désinfecter vos données d'entrée. Par exemple, si vous vous attendiez à avoir une chaîne numérique dans une variable, vous pouvez vérifier cela avec la fonction  ``is_numeric()``
+ou ``ctype_digit()``.
+Essayer toujours de faire vos vérifications en suivant un certain patron.
 
-If you're not allowed to do that, you can try using a .htaccess
-file to restrict access to those resources.
+Garder en tête que cela n'inclue pas que les superVariables $_POST et $_GET, mais aussi les cookies, les données de l'utilisateur, et plus généralement toutes les données qui ne sont pas créer directement par notre propre code.
 
-CodeIgniter will have an index.html file in all of its
-directories in an attempt to hide some of this data, but have
-it in mind that this is not enough to prevent a serious
-attacker.
+
+Échapper toutes les données avant insertion dans la base de données.
+=========================================================================================
+
+N'insérer jamais d'information dans votre base de données sans les échapper. Regarder la section qui parle des requêtes vers la base de données pour plus d'information
+
+Cacher vos fichiers
+=================================================
+
+Une autre bonne pratique est ne laisser que votre *index.php*
+et vos fichiers publiques (Par exemple .js, css et fichier d'images) à la racine de votre serveur (plus généralement nommée "htdocs/"). Ce sont les seuls fichiers que vous voulez laisser accessible de par le web.
+
+Autoriser vos visiteurs a voir le reste pourrait potentiellement leur permettre d’accéder a des données sensible, des scripts d’exécution..
+
+Si vous n'êtes pas autorisés à faire ça, vous pouvez essayer d'utiliser des fichiers .htaccess pour empêcher l'accès à ces ressources
+
+CodeIgniter à un fichier index.html dans chacun de ses dossiers pour cacher certaines données, mais garder en tête que ce n'est pas suffisant pour se protéger d'attaque sérieuse.
+
