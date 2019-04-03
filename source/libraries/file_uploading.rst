@@ -1,10 +1,10 @@
-####################
-File Uploading Class
-####################
+##########################
+Classe d'import de fichier
+##########################
 
-CodeIgniter's File Uploading Class permits files to be uploaded. You can
-set various preferences, restricting the type and size of the files.
 
+La classe d'import de fichier de code Igniter permet aux fichiers d'être importer.
+Vous pouvez créer différentes préferences, restreindre les types et la taille des fichiers.
 .. contents::
   :local:
 
@@ -12,28 +12,33 @@ set various preferences, restricting the type and size of the files.
 
   <div class="custom-index container"></div>
 
-***********
-The Process
-***********
+************
+Le processus
+************
 
-Uploading a file involves the following general process:
+Importer un fichier implique de suivre un processus général :
 
--  An upload form is displayed, allowing a user to select a file and
-   upload it.
--  When the form is submitted, the file is uploaded to the destination
-   you specify.
--  Along the way, the file is validated to make sure it is allowed to be
-   uploaded based on the preferences you set.
--  Once uploaded, the user will be shown a success message.
 
-To demonstrate this process here is brief tutorial. Afterward you'll
-find reference information.
+- Un formulaire d'import s'affiche pour permettre à l'utilisateur de séléctionner un fichier et de l'importer.
 
-Creating the Upload Form
-========================
+   
+- Une fois le formulaire est validé, le fichier est importer à l'endroit specifié par le développeur 
 
-Using a text editor, create a form called upload_form.php. In it, place
-this code and save it to your **application/views/** directory::
+
+- En cours de route, le fichier est validé pour s'assurer qu'il est autorisé à être téléchargé en fonction des préférences que vous avez définies.   
+
+
+- Une fois téléchargé, l'utilisateur recevra un message de réussite.
+
+
+Pour démontrer ce processus, voici un bref tutoriel. Ensuite, vous trouverez des informations de références.
+
+Création d'un formulaire d'import
+=================================
+
+
+Utilisez un editeur de text, créez un formulaire appellé upload_form.php. 
+A l'interieur, placez le code ci-dessous et enregistrez le dans le repertoire **application/views/** directory::
 
 	<html>
 	<head>
@@ -56,17 +61,17 @@ this code and save it to your **application/views/** directory::
 	</body>
 	</html>
 
-You'll notice we are using a form helper to create the opening form tag.
-File uploads require a multipart form, so the helper creates the proper
-syntax for you. You'll also notice we have an $error variable. This is
-so we can show error messages in the event the user does something
-wrong.
+	
+Vous noterez que nous utilisons une aide pour le formulaire afin de créer des balises d'entêtes.
+L'import de fichier nécessite un formulaire en plusieurs parties, par conséquent, l'aide va créer la bonne syntaxe pour vous.
+Vous remarquerez également que nous avons une variable $error. Celle ci nous permet d'afficher des messages d'erreurs si l'utilisateur fait une erreur.
 
-The Success Page
-================
+La page de succès
+=================
 
-Using a text editor, create a form called upload_success.php. In it,
-place this code and save it to your **application/views/** directory::
+
+Utilisez un editeur de text, créez un formulaire appellé upload_success.php. 
+A l'interieur, placez le code ci-dessous et enregistrez le dans le repertoire **application/views/** directory::
 
 	<html>
 	<head>
@@ -87,11 +92,12 @@ place this code and save it to your **application/views/** directory::
 	</body>
 	</html>
 
-The Controller
+Le controller
 ==============
 
-Using a text editor, create a controller called Upload.php. In it, place
-this code and save it to your **application/controllers/** directory::
+
+Utilisez un editeur de text, créez un formulaire appellé Upload.php. 
+A l'interieur, placez le code ci-dessous et enregistrez le dans le repertoire **application/controllers/** directory::
 
 	<?php
 
@@ -134,37 +140,41 @@ this code and save it to your **application/controllers/** directory::
 	}
 	?>
 
-The Upload Directory
-====================
+Le dossier d'import
+===================
 
-You'll need a destination directory for your uploaded images. Create a
-directory at the root of your CodeIgniter installation called uploads
+
 and set its file permissions to 777.
+Vous avez besoin d'un dossier de destination pour importer un fichier.
+Creez un repertoire en temps que root à la racine du projet CodeIgniter et donnez la permission 777.
 
 Try it!
 =======
 
-To try your form, visit your site using a URL similar to this one::
+
+Pour  essayer votre formulaire, visitez votre site web en utilisant une url similaire::
 
 	example.com/index.php/upload/
 
-You should see an upload form. Try uploading an image file (either a
-jpg, gif, or png). If the path in your controller is correct it should
-work.
 
-***************
-Reference Guide
-***************
+Vous devriez voir un formulaire d'import. Essayez d'importer une image (peu importe jpg, gif, png)
+Si le chemin de votre controller est correcte, cela devrait fonctionner.
 
-Initializing the Upload Class
+******************
+Guide de reference
+******************
+
+Initialisation de la classe d'import
 =============================
 
-Like most other classes in CodeIgniter, the Upload class is initialized
-in your controller using the ``$this->load->library()`` method::
+
+Comme la plus part des classes de CodeIgniter, la classe d'import est initialisé 
+dans votre controller en utilisant ``$this->load->library()`` methode::
 
 	$this->load->library('upload');
 
-Once the Upload class is loaded, the object will be available using:
+
+Une fois que la classe d'import est chargé, l'objet est disponible en utilisant:
 $this->upload
 
 Setting Preferences
