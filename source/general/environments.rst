@@ -1,12 +1,12 @@
-##############################
-Handling Multiple Environments
-##############################
+########################################
+Prendre en main plusieurs environnements
+########################################
 
-Developers often desire different system behavior depending on whether
-an application is running in a development or production environment.
-For example, verbose error output is something that would be useful
-while developing an application, but it may also pose a security issue
-when "live".
+
+Les développeurs veulent souvent avoir différents comportements de systèmes selon
+l'application en exécution dans un environnement de développement ou de production.
+Par exemple, une sortie des erreurs détaillées serait utile pendant le développement
+d'une application, mais cela peut poser un problème de sécurité lorsque celle ci est active.
 
 The ENVIRONMENT Constant
 ========================
@@ -26,12 +26,11 @@ In addition to affecting some basic framework behavior (see the next
 section), you may use this constant in your own development to
 differentiate between which environment you are running in.
 
-Effects On Default Framework Behavior
-=====================================
+Les effets sur le comportement par défaut du framework
+======================================================
 
-There are some places in the CodeIgniter system where the ENVIRONMENT
-constant is used. This section describes how default framework behavior
-is affected.
+Il y a des endroits dans le système de CodeIgniter où l'environnement constant est utilisé.
+Cette section décrit comment le comportement par défaut du framework est affecté.
 
 Error Reporting
 ---------------
