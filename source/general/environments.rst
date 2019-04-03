@@ -33,20 +33,12 @@ There are some places in the CodeIgniter system where the ENVIRONMENT
 constant is used. This section describes how default framework behavior
 is affected.
 
-Error Reporting
+Rapport d'erreur
 ---------------
+Définir l'environnement constant à une valeur de "développement" va faire que toutes les erreurs PHP vont se rendre sur le navigateur lors du lancement.
+À contrario, définir la "production" comme constante va désactiver toutes les sorties d'erreur. Désactiver les rapports d'erreur dans la production est une :doc:`bonne pratique de sécurité <security>` .
 
-Setting the ENVIRONMENT constant to a value of 'development' will cause
-all PHP errors to be rendered to the browser when they occur.
-Conversely, setting the constant to 'production' will disable all error
-output. Disabling error reporting in production is a :doc:`good security
-practice <security>`.
-
-Configuration Files
+Fichiers de configuration
 -------------------
-
-Optionally, you can have CodeIgniter load environment-specific
-configuration files. This may be useful for managing things like
-differing API keys across multiple environments. This is described in
-more detail in the environment section of the :doc:`Config Class
-<../libraries/config>` documentation.
+Optionnellement, vous pouvez avoir le chargement de l'environnement spécifique des fichiers de configuration de CodeIgniter. Cela peut-être utile pour gérer des choses comme les Clés d'API différentes dans plusieurs environnements.
+Ceci est décrit avec plus de détails dans la section de documentation :doc:`Configuration des classes <../libraries/config>`.
