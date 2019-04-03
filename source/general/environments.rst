@@ -21,10 +21,9 @@ Cette variable peut être mise dans .htaccess file ou Apache
 avec la configuration que vous utilisez`SetEnv <https://httpd.apache.org/docs/2.2/mod/mod_env.html#setenv>`_. 
  
 Des méthodes alternative existe pour nginx ou autre serveur ou bien vous pouvez supprimez ou tu peux
-supprimer entièrement cette logique et définir la constante en fonction de l'adresse IP du serveur
-In addition to affecting some basic framework behavior (see the next
-section), vous pouvez utiliser cette constante dans votre developpment pour differencier
-entre l'environment que vous utilisez.
+supprimer entièrement cette logique et définir la constante en fonction de l'adresse IP du serveur.
+En plus d'affecter les comportements de base du framework ( consulter la section suivante), vous pouvez utiliser cette constante dans votre développement pour différencier
+entre l'environnement que vous utilisez.
 
 Effects On Default Framework Behavior
 =====================================
@@ -35,6 +34,8 @@ is affected.
 
 Rapport d'erreur
 ---------------
+Définir l'environnement constant à une valeur de "développement" va faire que toutes les erreurs PHP vont se rendre sur le navigateur lors du lancement.
+À contrario, définir la "production" comme constante va désactiver toutes les sorties d'erreur. Désactiver les rapports d'erreur dans la production est une :doc:`bonne pratique de sécurité <security>` .
 
 Si vous réglez la constante ENVIRONNEMENT sur la valeur de 'développement',
 toutes les erreurs PHP à restituer au navigateur quand elles se produisent.
@@ -42,10 +43,9 @@ Inversement, le réglage de la constante sur «production» désactivera toutes 
 sortie. Désactiver le signalement des erreurs en production est un :doc:`bonne sécurité pour s'entraîner <security>`.
 
 Configuration Files
--------------------
+=======
+Fichiers de configuration
 
-Optionally, you can have CodeIgniter load environment-specific
-configuration files. This may be useful for managing things like
-differing API keys across multiple environments. This is described in
-more detail in the environment section of the :doc:`Config Class
-<../libraries/config>` documentation.
+-------------------
+Optionnellement, vous pouvez avoir le chargement de l'environnement spécifique des fichiers de configuration de CodeIgniter. Cela peut-être utile pour gérer des choses comme les Clés d'API différentes dans plusieurs environnements.
+Ceci est décrit avec plus de détails dans la section de documentation :doc:`Configuration des classes <../libraries/config>`.

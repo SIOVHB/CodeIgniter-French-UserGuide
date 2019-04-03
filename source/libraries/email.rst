@@ -1,20 +1,21 @@
-###########
-Email Class
-###########
+##################
+Classe de courriel
+##################
 
-CodeIgniter's robust Email Class supports the following features:
+La classe de courriel du robuste CodeIgniter supporte les fonctionnalités
+suivantes :
 
--  Multiple Protocols: Mail, Sendmail, and SMTP
--  TLS and SSL Encryption for SMTP
--  Multiple recipients
--  CC and BCCs
--  HTML or Plaintext email
--  Attachments
--  Word wrapping
--  Priorities
--  BCC Batch Mode, enabling large email lists to be broken into small
-   BCC batches.
--  Email Debugging tools
+-  Plusieurs protocoles : Mail, Sendmail, et SMTP
+-  Chiffrement avec TLS et SSL pour SMTP
+-  Plusieurs destinataires
+-  CC (copie à) et BCC (copie cachée à)
+-  Courriels en HTML ou en texte brut
+-  Pièces jointes
+-  Césure des mots
+-  Prioritiés
+-  Envoi en gros par BCC, permettant aux grandes listes d’être découpées en
+   plusieurs petits groupes.
+-  Outils de déboggage pour le mail
 
 .. contents::
   :local:
@@ -23,45 +24,45 @@ CodeIgniter's robust Email Class supports the following features:
 
   <div class="custom-index container"></div>
 
-***********************
-Using the Email Library
-***********************
+*************************************
+Utilisation de la biblothèque de mail
+*************************************
 
-Sending Email
-=============
+Envoyer un mail
+===============
 
-Sending email is not only simple, but you can configure it on the fly or
-set your preferences in a config file.
+Envoyer un mail n’est pas seulement simple, mais vous pouvez le configurer à la
+volée ou spécifier les préférences dans le fichier de configuration.
 
-Here is a basic example demonstrating how you might send email. Note:
-This example assumes you are sending the email from one of your
-:doc:`controllers <../general/controllers>`.
+Voici un exemple basique expliquant comment vous pouvez envoyer un mail. Note :
+cet exemple suppose que vous envoyer le mail depuis l’un de vos
+:doc:`contrôleurs <../general/controllers>`.
 
 ::
 
 	$this->load->library('email');
 
-	$this->email->from('your@example.com', 'Your Name');
-	$this->email->to('someone@example.com');
-	$this->email->cc('another@another-example.com');
-	$this->email->bcc('them@their-example.com');
+	$this->email->from('vous@example.com', 'Votre nom');
+	$this->email->to('quelque-un@example.com');
+	$this->email->cc('un-autre@un-autre-example.com');
+	$this->email->bcc('eux@leur-example.com');
 
-	$this->email->subject('Email Test');
-	$this->email->message('Testing the email class.');
+	$this->email->subject('Test mail');
+	$this->email->message('Essai de la classe mail.');
 
 	$this->email->send();
 
-Setting Email Preferences
-=========================
+Régler les préférences de mail
+==============================
 
-There are 21 different preferences available to tailor how your email
-messages are sent. You can either set them manually as described here,
-or automatically via preferences stored in your config file, described
-below:
+Il y a 21 préférences différentes disponibles pour affiner comment vos mails
+seront envoyés. Autrement, vous pouvez les régler manuellement comment nous le
+décrivons ici, ou automatiquement via les préférences stockées dans le fichier
+de configuration, décrit ci-dessous :
 
-Preferences are set by passing an array of preference values to the
-email initialize method. Here is an example of how you might set some
-preferences::
+Les préférences sont réglées dans un tableau de préférences où les valeurs sont
+passées à la méthode d’initialisation de mail. Voici un exemple de la façon de
+choisir des réglages::
 
 	$config['protocol'] = 'sendmail';
 	$config['mailpath'] = '/usr/sbin/sendmail';
@@ -70,76 +71,76 @@ preferences::
 
 	$this->email->initialize($config);
 
-.. note:: Most of the preferences have default values that will be used
-	if you do not set them.
+.. note:: La plus part des paramètres ont une valeur par défaut qui sera
+        utilisée si on ne les spécifie pas.
 
-Setting Email Preferences in a Config File
-------------------------------------------
+Réglage des paramètres de mail dans un fichier de configuration
+---------------------------------------------------------------
 
-If you prefer not to set preferences using the above method, you can
-instead put them into a config file. Simply create a new file called the
-email.php, add the $config array in that file. Then save the file at
-config/email.php and it will be used automatically. You will NOT need to
-use the ``$this->email->initialize()`` method if you save your
-preferences in a config file.
+Si vous préférez ne pas régler les paramètres en utilisant la méthode suivante,
+vous pouvez les mettres dans un fichier de configuration. Créeez simplement
+un nouveau fichier que vous appellerez email.php, et ajoutez le tableau $config.
+Puis sauvegardez le fichier sous config/email.php et il sera utilisé
+automatiquement. Nous n’avez PAS besoin d’utiliser la méthode
+``$this->email->initialize()`` si vous sauvegardez vos préférences dans le
+fichier de configuration.
 
-Email Preferences
-=================
+Réglages d’email
+================
 
-The following is a list of all the preferences that can be set when
-sending email.
+Voici une liste de tous les réglages que vous pouvez spécifier quand vous
+envoyez un email.
 
-=================== ====================== ============================ =======================================================================
-Preference          Default Value          Options                      Description
-=================== ====================== ============================ =======================================================================
-**useragent**       CodeIgniter            None                         The "user agent".
-**protocol**        mail                   mail, sendmail, or smtp      The mail sending protocol.
-**mailpath**        /usr/sbin/sendmail     None                         The server path to Sendmail.
-**smtp_host**       No Default             None                         SMTP Server Address.
-**smtp_user**       No Default             None                         SMTP Username.
-**smtp_pass**       No Default             None                         SMTP Password.
-**smtp_port**       25                     None                         SMTP Port.
-**smtp_timeout**    5                      None                         SMTP Timeout (in seconds).
-**smtp_keepalive**  FALSE                  TRUE or FALSE (boolean)      Enable persistent SMTP connections.
-**smtp_crypto**     No Default             tls or ssl                   SMTP Encryption
-**wordwrap**        TRUE                   TRUE or FALSE (boolean)      Enable word-wrap.
-**wrapchars**       76                                                  Character count to wrap at.
-**mailtype**        text                   text or html                 Type of mail. If you send HTML email you must send it as a complete web
-                                                                        page. Make sure you don't have any relative links or relative image
-                                                                        paths otherwise they will not work.
-**charset**         ``$config['charset']``                              Character set (utf-8, iso-8859-1, etc.).
-**validate**        FALSE                  TRUE or FALSE (boolean)      Whether to validate the email address.
-**priority**        3                      1, 2, 3, 4, 5                Email Priority. 1 = highest. 5 = lowest. 3 = normal.
-**crlf**            \\n                    "\\r\\n" or "\\n" or "\\r"   Newline character. (Use "\\r\\n" to comply with RFC 822).
-**newline**         \\n                    "\\r\\n" or "\\n" or "\\r"   Newline character. (Use "\\r\\n" to comply with RFC 822).
-**bcc_batch_mode**  FALSE                  TRUE or FALSE (boolean)      Enable BCC Batch Mode.
-**bcc_batch_size**  200                    None                         Number of emails in each BCC batch.
-**dsn**             FALSE                  TRUE or FALSE (boolean)      Enable notify message from server
-=================== ====================== ============================ =======================================================================
+=================== ====================== ============================ ================================================================================================
+Réglage             Valeur par défaut      Options                      Description
+=================== ====================== ============================ ================================================================================================
+**useragent**       CodeIgniter            Non                          Le "user agent".
+**protocol**        mail                   mail, sendmail, ou smtp      Le protocole d’envoi de mail.
+**mailpath**        /usr/sbin/sendmail     Non                          Le chemin vers le serveur Sendmail.
+**smtp_host**       Aucune                 Non                          L’adresse du serveur SMTP.
+**smtp_user**       Aucune                 Non                          Nom d’utilisateur SMTP.
+**smtp_pass**       Aucune                 Non                          Mot de passe SMTP.
+**smtp_port**       25                     Non                          Port SMTP.
+**smtp_timeout**    5                      Non                          Temps limite (en secondes).
+**smtp_keepalive**  FALSE                  TRUE or FALSE (boolean)      Activer les connexions SMTP persistantes.
+**smtp_crypto**     Aucune                 tls or ssl                   Chiffrement SMTP.
+**wordwrap**        TRUE                   TRUE or FALSE (boolean)      Activer la césure de mots.
+**wrapchars**       76                                                  Limite de caractères avant césure.
+**mailtype**        text                   text or html                 Le type de mail. Si vous envoyez un email HTML, vous devez l’envoyer comme une page web complète.
+                                                                        Prenez garde à ne pas avoir de liens ou images relatifs ou il ne vont pas fonctionner.
+**charset**         ``$config['charset']``                              Encodage (utf-8, iso-8859-1, etc.).
+**validate**        FALSE                  TRUE or FALSE (boolean)      Validation de l’adresse email.
+**priority**        3                      1, 2, 3, 4, 5                Priorité de l’email. 1 = le plus haut. 5 = le plus faible. 3 = normal.
+**crlf**            \\n                    "\\r\\n" or "\\n" or "\\r"   Caractère de nouvelle ligne. (Use "\\r\\n" to comply with RFC 822).
+**newline**         \\n                    "\\r\\n" or "\\n" or "\\r"   Caractère de nouvelle ligne. (Use "\\r\\n" to comply with RFC 822).
+**bcc_batch_mode**  FALSE                  TRUE or FALSE (boolean)      Activer l’envoi massif en BCC.
+**bcc_batch_size**  200                    Non                          Nombre de mails dans cache envoi en BCC.
+**dsn**             FALSE                  TRUE or FALSE (boolean)      Activer la notification de messages sur le serveur.
+=================== ====================== ============================ ================================================================================================
 
-Overriding Word Wrapping
-========================
+Ne pas tenir compte du retour à la ligne
+========================================
 
-If you have word wrapping enabled (recommended to comply with RFC 822)
-and you have a very long link in your email it can get wrapped too,
-causing it to become un-clickable by the person receiving it.
-CodeIgniter lets you manually override word wrapping within part of your
-message like this::
+Si vous avez activé le retour à la ligne (ce qui est recommandé pour respecter
+la RFC 822) et que vous avez un très long lien dans votre mail, il sera aussi
+coupé, ce qui le rendra incliquable pour la personne qui le recevera.
+CodeIgniter vous laisse la possibilité de manuellement ne pas tenir compte du
+retour à la ligne comme ceci::
 
-	The text of your email that
-	gets wrapped normally.
+	Le texte de votre mail va être
+	normalement coupé.
 
-	{unwrap}http://example.com/a_long_link_that_should_not_be_wrapped.html{/unwrap}
+	{unwrap}http://example.com/un_long_lien_qui_ne_sera_pas_coupe.html{/unwrap}
 
-	More text that will be
-	wrapped normally.
+	Plus de texte qui sera aussi
+	normalement coupé.
 
 
-Place the item you do not want word-wrapped between: {unwrap} {/unwrap}
+Mettez les mots que vous voulez garder d’un bloc entre : {unwrap} {/unwrap}
 
-***************
-Class Reference
-***************
+*******************
+Classe de Réference
+*******************
 
 .. php:class:: CI_Email
 
@@ -151,16 +152,16 @@ Class Reference
 		:returns:	CI_Email instance (method chaining)
 		:rtype:	CI_Email
 
-		Sets the email address and name of the person sending the email::
+		Spécifier l’adresse mail et le nom de la personne qui l’envoie::
 
 			$this->email->from('you@example.com', 'Your Name');
 
-		You can also set a Return-Path, to help redirect undelivered mail::
+		Vous pouvez aussi spécifier un Return-Path, ce qui va aider la redirection de mails non délivrés::
 
 			$this->email->from('you@example.com', 'Your Name', 'returned_emails@example.com');
 
-		.. note:: Return-Path can't be used if you've configured 'smtp' as
-			your protocol.
+		.. note:: Return-Path ne peut pas être utilisé si vous avez configuré
+			'smtp' comme protocole.
 
 	.. php:method:: reply_to($replyto[, $name = ''])
 
@@ -169,8 +170,8 @@ Class Reference
 		:returns:	CI_Email instance (method chaining)
 		:rtype:	CI_Email
 
-		Sets the reply-to address. If the information is not provided the
-		information in the :meth:from method is used. Example::
+		Spécifier l’adresse de réponse. Si l’information n’est pas fournie,
+		la méthode :meth:from est utilisée. Éxample::
 
 			$this->email->reply_to('you@example.com', 'Your Name');
 
@@ -180,8 +181,8 @@ Class Reference
 		:returns:	CI_Email instance (method chaining)
 		:rtype:	CI_Email
 
-		Sets the email address(s) of the recipient(s). Can be a single e-mail,
-		a comma-delimited list or an array::
+		Spécifier le(s) adresse(s) mail du (des) destinataire(s). Celà peut être une adresse unique,
+		ou une liste délimitée par des virgules ou un tableau::
 
 			$this->email->to('someone@example.com');
 
@@ -201,8 +202,8 @@ Class Reference
 		:returns:	CI_Email instance (method chaining)
 		:rtype:	CI_Email
 
-		Sets the CC email address(s). Just like the "to", can be a single e-mail,
-		a comma-delimited list or an array.
+		Spécifier les adresses de CC. Comme pour "to", peut-être une adresse unique,
+		un liste délimitée par des virgules ou un tableau.
 
 	.. php:method:: bcc($bcc[, $limit = ''])
 
@@ -211,12 +212,14 @@ Class Reference
 		:returns:	CI_Email instance (method chaining)
 		:rtype:	CI_Email
 
-		Sets the BCC email address(s). Just like the ``to()`` method, can be a single
-		e-mail, a comma-delimited list or an array.
+                Spécifier l’adresse email BCC. Tout comme la méthode ``to()``,
+                cela peut-être une adresse unique, une liste délimitée par des
+                virgules ou un tableau.
 
-		If ``$limit`` is set, "batch mode" will be enabled, which will send
-		the emails to batches, with each batch not exceeding the specified
-		``$limit``.
+                Si la variable ``$limit`` est spécifiée, le « mode d’envoi en
+                masse » sera activé, qui enverra les mails aux correspondants,
+                où chaque correspondant ne dépassera pas la ``$limit``
+                spécifiée.
 
 	.. php:method:: subject($subject)
 
@@ -224,7 +227,7 @@ Class Reference
 		:returns:	CI_Email instance (method chaining)
 		:rtype:	CI_Email
 
-		Sets the email subject::
+		Spécifier le sujet du mail::
 
 			$this->email->subject('This is my subject');
 
@@ -234,7 +237,7 @@ Class Reference
 		:returns:	CI_Email instance (method chaining)
 		:rtype:	CI_Email
 
-		Sets the e-mail message body::
+                Spécifier le corps de texte du mail::
 
 			$this->email->message('This is my message');
 
@@ -244,16 +247,17 @@ Class Reference
 		:returns:	CI_Email instance (method chaining)
 		:rtype:	CI_Email
 
-		Sets the alternative e-mail message body::
+                Spécifier le corps de texte alternatif::
 
 			$this->email->set_alt_message('This is the alternative message');
 
-		This is an optional message string which can be used if you send
-		HTML formatted email. It lets you specify an alternative message
-		with no HTML formatting which is added to the header string for
-		people who do not accept HTML email. If you do not set your own
-		message CodeIgniter will extract the message from your HTML email
-		and strip the tags.
+                Il s’agît d’un chaîne optionnelle qui peut être utilisée si vous
+                envoyez un mail formatté en HTML. Ceci vous permet de spécifier
+                un message alternatif non formatté en HTML qui est ajouté au
+                début du message pour les personnes qui n’acceptent pas les
+                mails en HTML. Si vous ne spécifiez pas votre propre message,
+                CodeIgniter extraira depuis votre mail HTML et retirera les
+                balises HTML.
 
 	.. php:method:: set_header($header, $value)
 
@@ -262,7 +266,7 @@ Class Reference
 		:returns:	CI_Email instance (method chaining)
 		:rtype: CI_Email
 
-		Appends additional headers to the e-mail::
+		Ajouter des en-têtes additionnels au mail::
 
 			$this->email->set_header('Header1', 'Value1');
 			$this->email->set_header('Header2', 'Value2');
@@ -273,9 +277,10 @@ Class Reference
 		:returns:	CI_Email instance (method chaining)
 		:rtype: CI_Email
 
-		Initializes all the email variables to an empty state. This method
-		is intended for use if you run the email sending method in a loop,
-		permitting the data to be reset between cycles.
+                Initialise à zéro toutes les variables du mail. Cette méthode a
+                pour but d’être utilisée si vous envoyez le mail dans une
+                boucle, permettant aux données d’être réinitialisées entre
+                chaque cycle.
 
 		::
 
@@ -290,8 +295,8 @@ Class Reference
 				$this->email->send();
 			}
 
-		If you set the parameter to TRUE any attachments will be cleared as
-		well::
+                Si vous spécifiez le paramètre à TRUE, chaque pièce-jointe sera
+                aussi supprimée::
 
 			$this->email->clear(TRUE);
 
@@ -301,24 +306,26 @@ Class Reference
 		:returns:	TRUE on success, FALSE on failure
 		:rtype:	bool
 
-		The e-mail sending method. Returns boolean TRUE or FALSE based on
-		success or failure, enabling it to be used conditionally::
+                La méthode d’envoi de mail. Retourne un booléen TRUE ou FALSE
+                basé sur le succès ou l’échec, permettant d’être utilisé
+                conditionnellement::
 
 			if ( ! $this->email->send())
 			{
 				// Generate error
 			}
 
-		This method will automatically clear all parameters if the request was
-		successful. To stop this behaviour pass FALSE::
+                Cette méthode effacera automatiquement tous les paramètres si la
+                requête s’est bien déroulée. Pour arrêter ce comportement,
+                passez FALSE comme paramètre de la fonction::
 
 		 	if ($this->email->send(FALSE))
 		 	{
 		 		// Parameters won't be cleared
 		 	}
 
-		.. note:: In order to use the ``print_debugger()`` method, you need
-			to avoid clearing the email parameters.
+		.. note:: Pour éviter l’utilisation de la méthode ``print_debugger()``, vous ne devez
+			pas effacer les paramètres du mail.
 
 	.. php:method:: attach($filename[, $disposition = ''[, $newname = NULL[, $mime = '']]])
 
@@ -331,30 +338,34 @@ Class Reference
 		:returns:	CI_Email instance (method chaining)
 		:rtype:	CI_Email
 
-		Enables you to send an attachment. Put the file path/name in the first
-		parameter. For multiple attachments use the method multiple times.
-		For example::
+                Vous permet d’envoyer une pièce jointe. Mettre le nom/chemin du
+                fichier en premier paramètre. Pour de multiples pièces-jointes,
+                utilisez la méthode plusieurs fois.
+		Par exemple::
 
 			$this->email->attach('/path/to/photo1.jpg');
 			$this->email->attach('/path/to/photo2.jpg');
 			$this->email->attach('/path/to/photo3.jpg');
 
-		To use the default disposition (attachment), leave the second parameter blank,
-		otherwise use a custom disposition::
+                Pour utiliser la disposition par défaut (pièce-jointe), laissez
+                le second paramètre vide, autrement utilisez une disposition
+                personnalisée::
 
 			$this->email->attach('image.jpg', 'inline');
 
-		You can also use a URL::
+		Vous pouvez aussi utiliser une URL::
 
 			$this->email->attach('http://example.com/filename.pdf');
 
-		If you'd like to use a custom file name, you can use the third paramater::
+                Si vous voulez utiliser un nom de fichier particulier, vous
+                pouvez utiliser le troisième paramètre::
 
 			$this->email->attach('filename.pdf', 'attachment', 'report.pdf');
 
-		If you need to use a buffer string instead of a real - physical - file you can
-		use the first parameter as buffer, the third parameter as file name and the fourth
-		parameter as mime-type::
+                Si vous devez utiliser une mémoire tempon à la place d’un
+                fichier réel — physique — vous pouvez utiliser le premier
+                paramètre comme mémoire tampon, le troisième paramètre comme nom
+                de fichier et le quatrière comme mime-type::
 
 			$this->email->attach($buffer, 'attachment', 'report.pdf', 'application/pdf');
 
@@ -364,9 +375,9 @@ Class Reference
 		:returns:	Attachment Content-ID or FALSE if not found
 		:rtype:	string
  
-		Sets and returns an attachment's Content-ID, which enables your to embed an inline
-		(picture) attachment into HTML. First parameter must be the already attached file name.
-		::
+                Spécifie et retourne le Content-ID de la pièce jointe, qui vous
+                permet d’ajouter une image dans le message HTML. Le premier
+                paramètre doit être un nom de pièce-jointe.::
  
 			$filename = '/img/photo1.jpg';
 			$this->email->attach($filename);
@@ -386,13 +397,15 @@ Class Reference
 		:returns:	Formatted debug data
 		:rtype:	string
 
-		Returns a string containing any server messages, the email headers, and
-		the email messsage. Useful for debugging.
+                Retourne une chaîne de caractères contenant tous les messages du
+                serveur, les en-têtes, et le contenu des messages. C’est très
+                utile pour débugguer.
 
-		You can optionally specify which parts of the message should be printed.
-		Valid options are: **headers**, **subject**, **body**.
+                Optionnellement, vous pouvez spécifier quelles parties du
+                message devront être imprimées.
+		Les options valides sont : **headers**, **subject**, **body**.
 
-		Example::
+		Exemple::
 
 			// You need to pass FALSE while sending in order for the email data
 			// to not be cleared - if that happens, print_debugger() would have
